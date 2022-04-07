@@ -3,7 +3,7 @@ import { POKEMON, TYPE_ICON } from "../../Helpers/Icons";
 
 let colorPalette = { background: "", ID: "", name: "", icon: "" };
 
-export const getPokemonTypeInformation = (type) => {
+export const getColorPallate = (type) => {
  switch (type) {
   case "normal":
    colorPalette = { background: COLOR.normal_card, numberColor: COLOR.normal_ID, nameColor: COLOR.normal_name, icon: TYPE_ICON.normal, image: POKEMON.Ratatta };

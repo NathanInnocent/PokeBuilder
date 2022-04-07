@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { Icon, ID, Image, Name, SmallPokemonCard } from "./styling";
-import { getPokemonTypeInformation } from "./typeLogic";
+import { getColorPallate } from "./typeLogic";
 import { pokemonSampleData } from "./Test";
 
 export const PokemonCard = (/* { type, name, number } */) => {
@@ -11,10 +11,7 @@ export const PokemonCard = (/* { type, name, number } */) => {
   <>
    {pokemon.map((pokemonReceived, index) => {
     const { type, pokemonName, number } = pokemonReceived;
-    const { background, numberColor, nameColor, icon, image } = getPokemonTypeInformation(type);
-    console.log(getPokemonTypeInformation(type));
-    console.log(background);
-    console.log(pokemonName);
+    const { background, numberColor, nameColor, icon, image } = getColorPallate(type);
 
     return (
      <SmallPokemonCard key={index} style={{ backgroundColor: `${background}` }}>
