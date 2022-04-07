@@ -19,11 +19,11 @@ import steel from "../Assets/Images/Icons/Steel_Type.png";
 import water from "../Assets/Images/Icons/Water_Type.png";
 
 //Other icons
-import pokeball from "../Assets/Images/Icons/pokeball.png";
-import downArrow from "../Assets/Images/Icons/down_arrow.png";
+import pokeball from "../Assets/Images/Icons/PokeBall.png";
+import downArrow from "../Assets/Images/Icons/DownUpArrow.png";
 
 //Image
-import pokeballOutline from "../Assets/Images/Icons/pokeball_outline.png";
+import pokeballOutline from "../Assets/Images/Icons/PokeBall_Outline.png";
 
 //Test pokemon
 import Charmander from "../Assets/Images/Test/Charmander.png";
