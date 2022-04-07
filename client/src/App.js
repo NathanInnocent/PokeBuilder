@@ -1,10 +1,15 @@
+import { UserAuthenticationForm } from "./Auth/Form";
 import GlobalStyle from "./Helpers/GlobalStyles";
 
 function App() {
  return (
   <>
    <GlobalStyle />
-   <div className="App"></div>
+   <div className="App">
+    <header className="App-header">
+     <UserAuthenticationForm />
+    </header>
+   </div>
   </>
  );
 }
