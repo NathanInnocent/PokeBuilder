@@ -1,26 +1,21 @@
 import { COLOR } from "../../Constants";
-import { TYPE_ICON } from "../../Helpers/Icons";
-
-//Pokemons
-import Grookey from "../../Assets/Images/Test/Grookey.png";
-import Charmander from "../../Assets/Images/Test/Charmander.png";
-import Ratatta from "../../Assets/Images/Test/Ratatta.png";
+import { POKEMON, TYPE_ICON } from "../../Helpers/Icons";
 
 let colorPalette = { background: "", ID: "", name: "", icon: "" };
 
 export const getPokemonTypeInformation = (type) => {
  switch (type) {
   case "normal":
-   colorPalette = { background: COLOR.normal_card, numberColor: COLOR.normal_ID, nameColor: COLOR.normal_name, icon: TYPE_ICON.normal, image: Ratatta };
+   colorPalette = { background: COLOR.normal_card, numberColor: COLOR.normal_ID, nameColor: COLOR.normal_name, icon: TYPE_ICON.normal, image: POKEMON.Ratatta };
    break;
   case "fire":
-   colorPalette = { background: COLOR.fire_card, numberColor: COLOR.fire_ID, nameColor: COLOR.fire_name, icon: TYPE_ICON.fire, image: Charmander };
+   colorPalette = { background: COLOR.fire_card, numberColor: COLOR.fire_ID, nameColor: COLOR.fire_name, icon: TYPE_ICON.fire, image: POKEMON.Charmander };
    break;
   case "water":
    colorPalette = { background: COLOR.water_card, numberColor: COLOR.water_ID, nameColor: COLOR.water_name, icon: TYPE_ICON.water };
    break;
   case "grass":
-   colorPalette = { background: COLOR.grass_card, numberColor: COLOR.grass_ID, nameColor: COLOR.grass_name, icon: TYPE_ICON.grass, image: Grookey };
+   colorPalette = { background: COLOR.grass_card, numberColor: COLOR.grass_ID, nameColor: COLOR.grass_name, icon: TYPE_ICON.grass, image: POKEMON.Grookey };
    break;
   case "bug":
    colorPalette = { background: COLOR.bug_card, numberColor: COLOR.bug_ID, nameColor: COLOR.bug_name, icon: TYPE_ICON.bug };

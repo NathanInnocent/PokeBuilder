@@ -18,6 +18,18 @@ import rock from "../Assets/Images/Icons/Rock_Type.png";
 import steel from "../Assets/Images/Icons/Steel_Type.png";
 import water from "../Assets/Images/Icons/Water_Type.png";
 
+//Other icons
+import pokeball from "../Assets/Images/Icons/pokeball.png";
+import downArrow from "../Assets/Images/Icons/down_arrow.png";
+
+//Image
+import pokeballOutline from "../Assets/Images/Icons/pokeball_outline.png";
+
+//Test pokemon
+import Charmander from "../Assets/Images/Test/Charmander.png";
+import Grookey from "../Assets/Images/Test/Grookey.png";
+import Ratatta from "../Assets/Images/Test/Ratatta.png";
+
 export const TYPE_ICON = {
  grass,
  bug,
@@ -38,3 +50,14 @@ export const TYPE_ICON = {
  steel,
  water,
 };
+
+export const ICON = {
+ pokeball,
+ downArrow,
+};
+
+//Image
+export { pokeballOutline };
+
+//Test pokemon
+export const POKEMON = { Charmander, Grookey, Ratatta };

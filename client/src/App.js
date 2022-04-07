@@ -1,6 +1,5 @@
-import { UserAuthenticationForm } from "./Auth/Form";
-import { PokemonCard } from "./Components/PokemonCard";
 import GlobalStyle from "./Helpers/GlobalStyles";
+import { SearchFilterPage } from "./Pages/SearchFilter";
 
 function App() {
  return (
@@ -8,7 +7,7 @@ function App() {
    <GlobalStyle />
    <div className="App">
     <header className="App-header">
-     <PokemonCard />
+     <SearchFilterPage />
     </header>
    </div>
   </>
