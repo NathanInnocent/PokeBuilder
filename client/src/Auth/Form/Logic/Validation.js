@@ -46,18 +46,10 @@ export const validateInputs = (input, setState, state, formStep, user) => {
  if (formStep === "register") {
   // ============== Username edge cases ============== //
   if (name === "username" && value === "") {
-   //  console.log("Inside the case: value is", value, ` name is`, name, "the state is", state, "the setState is", setState);
-
-   console.log({
-    ...state,
-    [name]: "Please enter a username",
-   });
    setState((state) => ({
     ...state,
     [name]: "Please enter a username",
    }));
-
-   //  console.log("After the setState", state);
   } else if (name === "username" && Number(value)) {
    setState({
     ...state,
