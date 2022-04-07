@@ -1,16 +1,64 @@
-import styled from "styled-components";
-import { TYPE_ICON } from "../../Helpers/Icons";
+import { useState } from "react";
+import { Icon } from "../../Components/PokemonCard/styling";
+import { getColorPallate } from "../../Components/PokemonCard/typeLogic";
+import { ICON } from "../../Helpers/Icons";
+import { Button, Text } from "./styling";
 
 export const SearchFilterPage = () => {
+ const [pokemonTypeList, setPokemonTypeList] = useState([
+  "normal",
+  "fire",
+  "water",
+  "grass",
+  "bug",
+  "electric",
+  "fairy",
+  "psychic",
+  "fighting",
+  "rock",
+  "ground",
+  "flying",
+  "ghost",
+  "ice",
+  "dark",
+  "dragon",
+  "poison",
+  "steel",
+ ]);
+
+ const [sortingCriteria, setSortingCriteria] = useState(["A-Z", "Z-A", "Heaviest-Lightest", "Lightest-Heaviest", "Tallest-Shortest", "Shortest-Tallest"]);
+
+ const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+ };
+
  return (
   <>
-   {/* First Container */}
+   {/* Container */}
    <div>
-    <h1>Search by type</h1>
-    <button style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "200px", borderRadius: "30px", border: "none" }}>
-     <p>Normal</p>
-     <img src={TYPE_ICON.normal} style={{ width: "50px" }} />
-    </button>
+    <h2>Search by type</h2>
+    {/* Types */}
+    {/* 2 columns on mobile -> 4 on desktop? */}
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+     {pokemonTypeList.map((type, index) => {
+      const { background, numberColor, icon } = getColorPallate(type);
+      return (
+       <Button key={index} style={{ backgroundColor: `${background}`, marginBottom: "10px" }}>
+        <Text style={{ color: `${numberColor}` }}>{capitalizeFirstLetter(type)}</Text>
+        <Icon src={icon} alt={`${type}_icon`} style={{ width: "50px", height: "50px", top: "0" }} />
+       </Button>
+      );
+     })}
+    </div>
+    <h2>Sort by</h2>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+     {sortingCriteria.map((criteria, index) => (
+      <Button key={index} style={{ marginBottom: "10px" }}>
+       <Text>{criteria}</Text>
+       <Icon src={ICON.downArrow} alt={`${criteria}_icon`} style={{ width: "50px", height: "50px", top: "0", borderRadius: "0" }} />
+      </Button>
+     ))}
+    </div>
    </div>
   </>
  );
