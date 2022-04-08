@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export const useFetch = (url, setData) => {
  useEffect(() => {
   const fetchData = async () => {
    const data = await fetch(url);
    const json = await data.json();
-   if (typeof setData === "function") {
+   if (typeof setData === "function" && json.data) {
     setData(Object.values(json.data));
    } else {
-    return json;
+    return setData(json);
    }
   };
 
   fetchData()
    // make sure to catch any error
-   .catch(console.log("error"));
+   .catch((error) => console.log(error));
  }, [url]);
 };
