@@ -1,44 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PokemonCard } from "../../Components/PokemonCard";
-import { useFetch } from "../../Hooks/useFetch";
+import { PokemonDataContext } from "../../Context/PokemonDataContext";
 
 export const Homepage = () => {
- const [pokemonData, setPokemonData] = useState([]);
+ const { pokemonData, getAllPokemon } = useContext(PokemonDataContext);
+
  const [currentPagePokemon, setCurrentPagePokemon] = useState("https://pokeapi.co/api/v2/pokemon");
  const [pokemonInformation, setPokemonInformation] = useState([]);
 
  const [previousPokemon, setPreviousPokemon] = useState(null);
  const [nextPokemon, setNextPokemon] = useState(null);
-
- //  console.log("currentPagePokemon", pokemonData);
-
- useFetch("https://pokeapi.co/api/v2/pokemon/", setPokemonData);
-
- const getAllPokemon = async () => {
-  const initUrl = "https://pokeapi.co/api/v2/pokemon";
-  // const initUrl = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
-  const response = await fetch(initUrl);
-  const data = await response.json();
-
-  const getPokemon = (result) => {
-   result.forEach(async (pokemon) => {
-    const url = `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`;
-    const data = await fetch(url);
-    const json = await data.json();
-    if (pokemonInformation.find((pokemon) => json.name === pokemon.name)) {
-     console.log("already in state");
-    } else setPokemonInformation((currentInformation) => [...currentInformation, json]);
-   });
-  };
-
-  getPokemon(data.results);
- };
-
- useEffect(() => {
-  getAllPokemon();
- }, []);
-
- console.log(pokemonInformation);
 
  useEffect(() => {
   if (pokemonData.next) setNextPokemon(pokemonData.next);
@@ -51,8 +22,8 @@ export const Homepage = () => {
  return (
   <>
    <div>homepage</div>
-   {pokemonInformation &&
-    pokemonInformation
+   {pokemonData &&
+    pokemonData
      .sort((pokemonA, pokemonB) => pokemonA.id > pokemonB.id)
      .map((pokemon, index) => {
       return <PokemonCard key={index} info={pokemon} />;
