@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Icon } from "../../Components/PokemonCard/styling";
-import { getColorPallate } from "../../Components/PokemonCard/typeLogic";
+import { getColorPallate, getTypeIcon } from "../../Components/PokemonCard/typeLogic";
 import { ICON } from "../../Helpers/Icons";
 import { Button, Text } from "./styling";
 
@@ -41,7 +41,8 @@ export const SearchFilterPage = () => {
     {/* 2 columns on mobile -> 4 on desktop? */}
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
      {pokemonTypeList.map((type, index) => {
-      const { background, numberColor, icon } = getColorPallate(type);
+      const { background, numberColor } = getColorPallate(type);
+      const { icon } = getTypeIcon(type);
       return (
        <Button key={index} style={{ backgroundColor: `${background}`, marginBottom: "10px" }}>
         <Text style={{ color: `${numberColor}` }}>{capitalizeFirstLetter(type)}</Text>
@@ -59,6 +60,7 @@ export const SearchFilterPage = () => {
       </Button>
      ))}
     </div>
+    <h2>Sort by Generation</h2>
    </div>
   </>
  );
