@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { PokemonCard } from "../../Components/PokemonCard";
+import { SearchBar } from "../../Components/SearchBar";
 import { PokemonDataContext } from "../../Context/PokemonDataContext";
+import { Content } from "../SinglePokemon";
 
 export const Homepage = () => {
  const { pokemonData, getAllPokemon } = useContext(PokemonDataContext);
@@ -20,14 +22,16 @@ export const Homepage = () => {
  }, [pokemonData]);
 
  return (
-  <>
-   <div>homepage</div>
-   {pokemonData &&
-    pokemonData
-     .sort((pokemonA, pokemonB) => pokemonA.id > pokemonB.id)
-     .map((pokemon, index) => {
-      return <PokemonCard key={index} info={pokemon} />;
-     })}
-  </>
+  <Content>
+   <SearchBar displayButton="none" />
+   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", justifyItems: "center" }}>
+    {pokemonData &&
+     pokemonData
+      .sort((pokemonA, pokemonB) => pokemonA.id > pokemonB.id)
+      .map((pokemon, index) => {
+       return <PokemonCard key={index} info={pokemon} />;
+      })}
+   </div>
+  </Content>
  );
 };

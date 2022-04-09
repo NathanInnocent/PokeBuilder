@@ -5,6 +5,7 @@ import { PokemonDataContext } from "../../Context/PokemonDataContext";
 import { pokeballOutline } from "../../Helpers/Icons";
 import { useFetch } from "../../Hooks/useFetch";
 import { useParams } from "react-router-dom";
+import { SearchBar } from "../../Components/SearchBar";
 
 export const SinglePokemonPage = () => {
  let { searchedPokemon } = useParams();
@@ -14,9 +15,11 @@ export const SinglePokemonPage = () => {
  };
 
  const { pokemonData } = useContext(PokemonDataContext);
- const [currentPokemon, setCurrentPokemon] = useState(null);
 
+ // =========  WORK IN PROGRESS
+ const [currentPokemon, setCurrentPokemon] = useState(null);
  useEffect(() => {
+  console.log("Single Page loaded");
   let isPokemonInsideContext = pokemonData.some((pokemonDataInsideContext) => pokemonDataInsideContext.name === searchedPokemon);
   console.log(isPokemonInsideContext);
 
@@ -27,6 +30,7 @@ export const SinglePokemonPage = () => {
    console.log("Invalid pokemon");
   }
  }, []);
+ // =========  WORK IN PROGRESS
 
  const currentlyViewedPokemon = pokemonData.filter((pokemonDataInsideContext) => pokemonDataInsideContext.name === searchedPokemon)[0];
 
@@ -72,8 +76,9 @@ export const SinglePokemonPage = () => {
      {/* Pokemon Name && IdNumber && Image && Team Button*/}
      <Section style={{ backgroundColor: `${backgroundColor}` }}>
       <Content>
+       <SearchBar backNavigation="/home" />
        <PokemonName style={{ color: `${nameColor}`, textAlign: "center" }}>{capitalizedPokemonName}</PokemonName>
-       <PokemonId style={{ textAlign: "center", color: `${nameColor}` }}>{displayedPokemonId}</PokemonId>
+       <PokemonId style={{ textAlign: "center", color: `${numberColor}` }}>{displayedPokemonId}</PokemonId>
        {/* Add to team button */}
        <ButtonTeam>Add to team</ButtonTeam>
        {/* image section */}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Icon } from "../../Components/PokemonCard/styling";
 import { getColorPallate, getTypeIcon } from "../../Components/PokemonCard/typeLogic";
+import { SearchBar } from "../../Components/SearchBar";
 import { ICON } from "../../Helpers/Icons";
 import { Button, Text } from "./styling";
 
@@ -36,6 +37,7 @@ export const SearchFilterPage = () => {
   <>
    {/* Container */}
    <div>
+    <SearchBar />
     <h2>Search by type</h2>
     {/* Types */}
     {/* 2 columns on mobile -> 4 on desktop? */}
@@ -56,7 +58,7 @@ export const SearchFilterPage = () => {
      {sortingCriteria.map((criteria, index) => (
       <Button key={index} style={{ marginBottom: "10px" }}>
        <Text>{criteria}</Text>
-       <Icon src={ICON.downArrow} alt={`${criteria}_icon`} style={{ width: "50px", height: "50px", top: "0", borderRadius: "0" }} />
+       <Icon src={ICON.upDownArrow} alt={`${criteria}_icon`} style={{ width: "50px", height: "50px", top: "0", borderRadius: "0" }} />
       </Button>
      ))}
     </div>
