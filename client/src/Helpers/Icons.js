@@ -20,7 +20,9 @@ import water from "../Assets/Images/Icons/Water_Type.png";
 
 //Other icons
 import pokeball from "../Assets/Images/Icons/PokeBall.png";
-import downArrow from "../Assets/Images/Icons/DownUpArrow.png";
+import upDownArrow from "../Assets/Images/Icons/DownUpArrow.png";
+import backArrow from "../Assets/Images/Icons/BackArrow.png";
+import magnifyingGlass from "../Assets/Images/Icons/SearchIcon.png";
 
 //Image
 import pokeballOutline from "../Assets/Images/Icons/PokeBall_Outline.png";
@@ -53,7 +55,9 @@ export const TYPE_ICON = {
 
 export const ICON = {
  pokeball,
- downArrow,
+ upDownArrow,
+ backArrow,
+ magnifyingGlass,
 };
 
 //Image
