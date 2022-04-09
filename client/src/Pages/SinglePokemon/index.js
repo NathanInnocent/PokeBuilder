@@ -4,15 +4,37 @@ import { convertPokemonId, getColorPallate } from "../../Components/PokemonCard/
 import { PokemonDataContext } from "../../Context/PokemonDataContext";
 import { pokeballOutline } from "../../Helpers/Icons";
 import { useFetch } from "../../Hooks/useFetch";
+import { useParams } from "react-router-dom";
 
 export const SinglePokemonPage = () => {
+ let { searchedPokemon } = useParams();
+
  const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
  };
+
  const { pokemonData } = useContext(PokemonDataContext);
- const currentlyViewedPokemon = pokemonData.filter((pokemonDataInsideContext) => pokemonDataInsideContext.name === "pidgeotto")[0];
+ const [currentPokemon, setCurrentPokemon] = useState(null);
+
+ useEffect(() => {
+  let isPokemonInsideContext = pokemonData.some((pokemonDataInsideContext) => pokemonDataInsideContext.name === searchedPokemon);
+  console.log(isPokemonInsideContext);
+
+  if (isPokemonInsideContext) {
+   console.log("Found pokemon");
+   setCurrentPokemon(pokemonData.filter((pokemonDataInsideContext) => pokemonDataInsideContext.name === searchedPokemon)[0]);
+  } else {
+   console.log("Invalid pokemon");
+  }
+ }, []);
+
+ const currentlyViewedPokemon = pokemonData.filter((pokemonDataInsideContext) => pokemonDataInsideContext.name === searchedPokemon)[0];
+
+ console.log(currentPokemon, `vs`, currentlyViewedPokemon);
 
  //  Destructuring Information
+ //  working line 37 const { abilities, forms, height, id, name, sprites, stats, types, weight } = currentlyViewedPokemon;
+ //  const { abilities, forms, height, id, name, sprites, stats, types, weight } = currentPokemon;
  const { abilities, forms, height, id, name, sprites, stats, types, weight } = currentlyViewedPokemon;
  const primaryType = types[0].type.name;
  const { backgroundColor, numberColor, nameColor } = getColorPallate(primaryType);
@@ -44,71 +66,76 @@ export const SinglePokemonPage = () => {
  }, [pokemonAdditionInformation]);
 
  return (
-  <Page>
-   {/* Pokemon Name && IdNumber && Image && Team Button*/}
-   <Section style={{ backgroundColor: `${backgroundColor}` }}>
-    <Content>
-     <PokemonName style={{ color: `${nameColor}`, textAlign: "center" }}>{capitalizedPokemonName}</PokemonName>
-     <PokemonId style={{ textAlign: "center", color: `${nameColor}` }}>{displayedPokemonId}</PokemonId>
-     {/* Add to team button */}
-     <ButtonTeam>Add to team</ButtonTeam>
-     {/* image section */}
-     <ImageContainerDiv style={{ zIndex: "1", margin: "auto" }}>
-      <PokemonImage src={image} alt={`${name} png`} />
-     </ImageContainerDiv>
-    </Content>
-   </Section>
+  <>
+   {currentPokemon !== null && (
+    <Page>
+     {/* Pokemon Name && IdNumber && Image && Team Button*/}
+     <Section style={{ backgroundColor: `${backgroundColor}` }}>
+      <Content>
+       <PokemonName style={{ color: `${nameColor}`, textAlign: "center" }}>{capitalizedPokemonName}</PokemonName>
+       <PokemonId style={{ textAlign: "center", color: `${nameColor}` }}>{displayedPokemonId}</PokemonId>
+       {/* Add to team button */}
+       <ButtonTeam>Add to team</ButtonTeam>
+       {/* image section */}
+       <ImageContainerDiv style={{ zIndex: "1", margin: "auto" }}>
+        <PokemonImage src={image} alt={`${name} png`} />
+       </ImageContainerDiv>
+      </Content>
+     </Section>
 
-   {/* Only shows when fetching is done */}
-   {/* Pokemon Type || Stats || Evolution Chain */}
-   {pokemonDescription !== null && (
-    <Section style={{ padding: "5px 20px 5px 20px", backgroundColor: "white", borderRadius: "25px 25px 0 0", position: "relative", top: "-16px" }}>
-     <Content>
-      {/* Type Tags*/}
-      <FlexHorizontalContainer>
-       {types.map((availableType, index) => {
-        // Get color schema for each available type
-        const { numberColor } = getColorPallate(availableType.type.name);
+     {/* Only shows when fetching is done */}
+     {/* Pokemon Type || Stats || Evolution Chain */}
+     {pokemonDescription !== null && (
+      <Section style={{ padding: "5px 20px 5px 20px", backgroundColor: "white", borderRadius: "25px 25px 0 0", position: "relative", top: "-16px" }}>
+       <Content>
+        {/* Type Tags*/}
+        <FlexHorizontalContainer>
+         {types.map((availableType, index) => {
+          // Get color schema for each available type
+          const { numberColor } = getColorPallate(availableType.type.name);
 
-        return (
-         <TypeLabel key={index} style={{ backgroundColor: `${numberColor}` }}>
-          {availableType.type.name}
-         </TypeLabel>
-        );
-       })}
-      </FlexHorizontalContainer>
+          return (
+           <TypeLabel key={index} style={{ backgroundColor: `${numberColor}` }}>
+            {availableType.type.name}
+           </TypeLabel>
+          );
+         })}
+        </FlexHorizontalContainer>
 
-      {/* Species | Weight | Height  */}
-      <FlexHorizontalContainer style={{ textAlign: "center" }}>
-       {/* Species */}
-       <Container style={{ borderRight: "1px solid gray" }}>
-        <StatValue>{pokemonDescription.species}</StatValue>
-       </Container>
+        {/* Species | Weight | Height  */}
+        <FlexHorizontalContainer style={{ textAlign: "center" }}>
+         {/* Species */}
+         <Container style={{ borderRight: "1px solid gray" }}>
+          <StatValue>{pokemonDescription.species}</StatValue>
+         </Container>
 
-       {/* Weight */}
-       <Container style={{ borderRight: "1px solid gray" }}>
-        <StatValue>{weight} lbs.</StatValue>
-        <StatLabel>Weight</StatLabel>
-       </Container>
+         {/* Weight */}
+         <Container style={{ borderRight: "1px solid gray" }}>
+          <StatValue>{weight} lbs.</StatValue>
+          <StatLabel>Weight</StatLabel>
+         </Container>
 
-       {/* Height */}
-       <Container>
-        <StatValue>{height}'</StatValue>
-        <StatLabel>Height</StatLabel>
-       </Container>
-      </FlexHorizontalContainer>
+         {/* Height */}
+         <Container>
+          <StatValue>{height}'</StatValue>
+          <StatLabel>Height</StatLabel>
+         </Container>
+        </FlexHorizontalContainer>
 
-      {/* Pokemon description */}
-      <div style={{ whiteSpace: "normal" }}>{pokemonDescription.description}</div>
+        {/* Pokemon description */}
+        <div style={{ whiteSpace: "normal" }}>{pokemonDescription.description}</div>
 
-      {/* Evolution Chain */}
-      <div>
-       <div>Evolves from</div>
-      </div>
-     </Content>
-    </Section>
+        {/* Evolution Chain */}
+        <div>
+         <div>Evolves from</div>
+        </div>
+       </Content>
+      </Section>
+     )}
+    </Page>
    )}
-  </Page>
+   {currentPokemon === null && <div>Fetching data...</div>}
+  </>
  );
 };
 

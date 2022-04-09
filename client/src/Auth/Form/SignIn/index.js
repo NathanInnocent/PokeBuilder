@@ -4,8 +4,11 @@ import { Form, Button, Container, ErrorMessage, Input, InputContainer, FormTitle
 import { hidePlaceHolderText, showPlaceHolderText } from "../Logic/PlaceholderText";
 import { updateUserInformation } from "../Logic/UpdateInput";
 import { validateInputs } from "../Logic/Validation";
+import { useNavigate } from "react-router-dom";
 
 export const SignInForm = ({ formStep, setFormStep }) => {
+ let navigate = useNavigate();
+
  // State to store user Information
  const [loginUserInformation, setLoginUserInformation] = useState({
   username: "",
@@ -75,7 +78,13 @@ export const SignInForm = ({ formStep, setFormStep }) => {
      >
       Register
      </Button>
-     <Button>Login</Button>
+     <Button
+      onClick={() => {
+       navigate("/home");
+      }}
+     >
+      Login
+     </Button>
     </div>
    </Container>
   </Form>

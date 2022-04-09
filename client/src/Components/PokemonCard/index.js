@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Icon, ID, Image, Name, SmallPokemonCard } from "./styling";
 import { convertPokemonId, getColorPallate, getTypeIcon } from "./typeLogic";
+import { useNavigate } from "react-router-dom";
 
 export const PokemonCard = ({ info }) => {
+ let navigate = useNavigate();
  //  const [pokemon, setPokemon] = useState(pokemonSampleData);
  const { sprites, id, types, name } = info;
  const image = sprites.other[`official-artwork`][`front_default`];
@@ -15,7 +17,12 @@ export const PokemonCard = ({ info }) => {
  };
 
  return (
-  <SmallPokemonCard style={{ backgroundColor: `${backgroundColor}` }}>
+  <SmallPokemonCard
+   onClick={() => {
+    navigate(`/pokemon/${name}`);
+   }}
+   style={{ backgroundColor: `${backgroundColor}` }}
+  >
    <ID style={{ color: `${numberColor}` }}>{displayedPokemonId}</ID>
    <Name style={{ color: `${nameColor}` }}>{capitalizeFirstLetter(name)}</Name>
    <div style={{ display: "flex", gap: "10px" }}>
