@@ -27,6 +27,7 @@ function App() {
      <Routes>
       <Route path="/" element={<UserAuthenticationForm />} />
       <Route path="/home" element={<Homepage />} />
+      <Route path="/pokemon/search" element={<SearchFilterPage />} />
       <Route path="/pokemon/:searchedPokemon" element={<SinglePokemonPage />} />
       <Route path="*" element={<div>There was an error</div>} />
      </Routes>
