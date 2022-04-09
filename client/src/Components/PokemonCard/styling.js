@@ -11,6 +11,7 @@ export const SmallPokemonCard = styled.div`
  overflow: hidden;
  padding: 0 10px;
  margin: 20px;
+ cursor: pointer;
 `;
 
 export const Icon = styled.img`
