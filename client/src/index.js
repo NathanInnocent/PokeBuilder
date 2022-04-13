@@ -1,14 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import { CurrentTeamContext } from "./Context/CurrentPokemonTeamContext";
 import { PokemonDataProvider } from "./Context/PokemonDataContext";
 import GlobalStyle from "./Helpers/GlobalStyles";
 // import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
  <PokemonDataProvider>
-  <GlobalStyle />
-  <App />
+  <CurrentTeamContext>
+   <GlobalStyle />
+   <App />
+  </CurrentTeamContext>
  </PokemonDataProvider>,
 
  document.getElementById("root")

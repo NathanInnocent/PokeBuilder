@@ -25,7 +25,7 @@ export const Search = () => {
      backgroundSize: "27px 27px",
      maxWidth: "80%",
      backgroundColor: "white",
-     margin: "50px 0px",
+     margin: "none",
     }}
    />
   </>

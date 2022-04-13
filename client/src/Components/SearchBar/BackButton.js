@@ -17,7 +17,7 @@ export const BackButton = ({ displayValue, route }) => {
 
  return (
   <>
-   <Icon onClick={returnToHomepage} src={ICON.backArrow} style={{ top: "0px", borderRadius: "0", cursor: "pointer", width: "60px", height: "40px", display: `${displayValue}` }} />
+   <Icon onClick={returnToHomepage} src={ICON.backArrow} style={{ top: "0px", borderRadius: "0", cursor: "pointer", width: "70px", height: "70px", display: `${displayValue}` }} />
   </>
  );
 };

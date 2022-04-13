@@ -126,7 +126,6 @@ export const Input = styled.input`
  font-family: "HelveticaNeue", "Arial", sans-serif;
  font-size: 105%;
  letter-spacing: 0.8px;
- margin-bottom: 10px;
 
  &:focus {
   outline: 3px solid rgba(81, 203, 238, 1);

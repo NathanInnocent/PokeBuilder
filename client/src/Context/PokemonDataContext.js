@@ -4,38 +4,44 @@ export const PokemonDataContext = createContext(null);
 
 export const PokemonDataProvider = ({ children }) => {
  // CurrentUser
- const [pokemonData, setPokemonData] = useState([]);
+ const [allPokemonData, setAllPokemonData] = useState([]);
+ const [shownPokemons, setShownPokemons] = useState([]);
+ const [viewedGeneration, setViewedGeneration] = useState("Generation 1");
 
  const getAllPokemon = async () => {
-  // First 20 Pokemons
-  const initUrl = "https://pokeapi.co/api/v2/pokemon";
+  //Gen i
+  const genUrl = "https://pokeapi.co/api/v2/generation/1/";
+  const responseGen = await fetch(genUrl);
+  const dataGen = await responseGen.json();
   //All Pokemons
-  // const initUrl = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
-  const response = await fetch(initUrl);
-  const data = await response.json();
+  const allUrl = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
+  const responseAll = await fetch(allUrl);
+  const dataAll = await responseAll.json();
 
-  const getPokemon = (result) => {
+  const getPokemon = async (result, setState) => {
    result.forEach(async (pokemon) => {
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`;
     const data = await fetch(url);
     const pokemonFetchData = await data.json();
-
-    // Check if data is already inside the context, if so break out of loop
-    if (pokemonData.find((contextPokemonData) => pokemonFetchData.name === contextPokemonData.name)) return;
-    // Data not already inside Context, proceed to add it
-    else setPokemonData((currentInformation) => [...currentInformation, pokemonFetchData]);
+    setState((currentInformation) => [...currentInformation, pokemonFetchData]);
    });
   };
-
-  getPokemon(data.results);
+  // // Get 1 gen
+  await getPokemon(dataGen.pokemon_species, setShownPokemons);
+  // Get all the pokemons
+  await getPokemon(dataAll.results, setAllPokemonData);
  };
 
  return (
   <PokemonDataContext.Provider
    value={{
-    pokemonData,
-    setPokemonData,
+    allPokemonData,
+    setAllPokemonData,
     getAllPokemon,
+    shownPokemons,
+    setShownPokemons,
+    viewedGeneration,
+    setViewedGeneration,
    }}
   >
    {children}

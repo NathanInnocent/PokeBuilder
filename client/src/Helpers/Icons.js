@@ -23,9 +23,21 @@ import pokeball from "../Assets/Images/Icons/PokeBall.png";
 import upDownArrow from "../Assets/Images/Icons/DownUpArrow.png";
 import backArrow from "../Assets/Images/Icons/BackArrow.png";
 import magnifyingGlass from "../Assets/Images/Icons/SearchIcon.png";
+import filter from "../Assets/Images/Icons/Filter.png";
 
 //Image
 import pokeballOutline from "../Assets/Images/Icons/PokeBall_Outline.png";
+import pokemonSilouhette from "../Assets/Images/Silhouettes/Pikachu.png";
+
+//Generation Images
+import one from "../Assets/Images/Starters/Gen1.png";
+import two from "../Assets/Images/Starters/Gen2.png";
+import three from "../Assets/Images/Starters/Gen3.png";
+import four from "../Assets/Images/Starters/Gen4.png";
+import five from "../Assets/Images/Starters/Gen5.png";
+import six from "../Assets/Images/Starters/Gen6.png";
+import seven from "../Assets/Images/Starters/Gen7.png";
+import eight from "../Assets/Images/Starters/Gen8.png";
 
 //Test pokemon
 import Charmander from "../Assets/Images/Test/Charmander.png";
@@ -58,10 +70,13 @@ export const ICON = {
  upDownArrow,
  backArrow,
  magnifyingGlass,
+ filter,
 };
 
+export const GENERATION = { one, two, three, four, five, six, seven, eight };
+
 //Image
-export { pokeballOutline };
+export { pokeballOutline, pokemonSilouhette };
 
 //Test pokemon
 export const POKEMON = { Charmander, Grookey, Ratatta };

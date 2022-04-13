@@ -135,6 +135,6 @@ export const convertPokemonId = (number) => {
  //id 15 => return 015
  // id 100+ => return 100
  if (number < 10) return `00${number}`;
- else if (number < 100 && number > 10) return `0${number}`;
+ else if (number < 100 && number >= 10) return `0${number}`;
  else return number;
 };

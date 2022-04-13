@@ -4,16 +4,15 @@ import { PokemonCard } from "./Components/PokemonCard";
 import { PokemonDataContext } from "./Context/PokemonDataContext";
 import { Homepage } from "./Pages";
 
-import { SearchFilterPage } from "./Pages/SearchFilter";
+import { SearchFilterPage } from "./Pages/MoreFilters";
 import { SinglePokemonPage } from "./Pages/SinglePokemon";
 
 // Routing
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { FilteredPokemonPage } from "./Pages/FilteredPokemon";
 
 function App() {
- const { pokemonData, getAllPokemon } = useContext(PokemonDataContext);
-
- console.log(pokemonData);
+ const { shownPokemons, getAllPokemon, allPokemonData } = useContext(PokemonDataContext);
 
  //  On mount fetch data
  useEffect(() => {
@@ -22,34 +21,22 @@ function App() {
 
  return (
   <>
-   {pokemonData.length >= 20 && (
+   {/* Only show app if we have all pokemon data  */}
+   {shownPokemons.length > 0 && allPokemonData.length >= 1126 && (
     <Router>
      <Routes>
       <Route path="/" element={<UserAuthenticationForm />} />
       <Route path="/home" element={<Homepage />} />
-      <Route path="/pokemon/search" element={<SearchFilterPage />} />
+      <Route path="/pokemon/filter" element={<SearchFilterPage />} />
+      <Route path="/pokemon/filter/:criteria" element={<FilteredPokemonPage />} />
       <Route path="/pokemon/:searchedPokemon" element={<SinglePokemonPage />} />
       <Route path="*" element={<div>There was an error</div>} />
      </Routes>
     </Router>
    )}
+   {/* Loading animation */}
+   {allPokemonData.length < 1126 && <>Loading...</>}
   </>
-  // <>
-  //  {/* If fetching is still awaiting */}
-  //  {pokemonData.length === 0 && <div>loading...</div>}
-  //  {/* If fetching is done */}
-  //  {pokemonData.length >= 20 && (
-  //   <div className="App">
-  //    <header className="App-header">
-  //     {/* <UserAuthenticationForm /> */}
-  //     {/* <PokemonCard /> */}
-  //     {/* <SearchFilterPage /> */}
-  //     {/* <Homepage /> */}
-  //     <SinglePokemonPage />
-  //    </header>
-  //   </div>
-  //  )}
-  // </>
  );
 }
 

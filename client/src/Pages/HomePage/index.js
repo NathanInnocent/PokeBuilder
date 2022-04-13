@@ -1,36 +1,26 @@
 import { useContext, useEffect, useState } from "react";
+import { Filters } from "../../Components/Filters";
 import { PokemonCard } from "../../Components/PokemonCard";
+import { PokemonTeam } from "../../Components/PokemonTeam";
 import { SearchBar } from "../../Components/SearchBar";
 import { PokemonDataContext } from "../../Context/PokemonDataContext";
-import { Content } from "../SinglePokemon";
+import { Content } from "../SinglePokemon/styling";
 
 export const Homepage = () => {
- const { pokemonData, getAllPokemon } = useContext(PokemonDataContext);
-
- const [currentPagePokemon, setCurrentPagePokemon] = useState("https://pokeapi.co/api/v2/pokemon");
- const [pokemonInformation, setPokemonInformation] = useState([]);
-
- const [previousPokemon, setPreviousPokemon] = useState(null);
- const [nextPokemon, setNextPokemon] = useState(null);
-
- useEffect(() => {
-  if (pokemonData.next) setNextPokemon(pokemonData.next);
-  else setNextPokemon(null);
-
-  if (pokemonData.previous) setPreviousPokemon(pokemonData.previous);
-  else setPreviousPokemon(null);
- }, [pokemonData]);
+ const { shownPokemons, viewedGeneration } = useContext(PokemonDataContext);
 
  return (
   <Content>
    <SearchBar displayButton="none" />
+   <PokemonTeam />
+   <Filters />
+
+   <div>{`Viewing ${viewedGeneration} Pokemons`}</div>
    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", justifyItems: "center" }}>
-    {pokemonData &&
-     pokemonData
-      .sort((pokemonA, pokemonB) => pokemonA.id > pokemonB.id)
-      .map((pokemon, index) => {
-       return <PokemonCard key={index} info={pokemon} />;
-      })}
+    {shownPokemons &&
+     shownPokemons.map((pokemon, index) => {
+      return <PokemonCard key={index} info={pokemon} />;
+     })}
    </div>
   </Content>
  );

@@ -1,4 +1,4 @@
-import { SearchFilterPage } from "./SearchFilter";
+import { SearchFilterPage } from "./MoreFilters";
 import { Homepage } from "./HomePage";
 
 export { SearchFilterPage, Homepage };
