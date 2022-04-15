@@ -16,8 +16,6 @@ export const SinglePokemon = () => {
  const { allPokemonData } = useContext(PokemonDataContext);
 
  const { statsDetail, setStatsDetail, speciesDetails, setSpeciesDetail, setEvolutionChainDetail, currentPokemon, setCurrentPokemon } = useContext(CurrentPokemonContext);
- console.log("stats details", statsDetail);
-
  //================ Gain Pokemon Species ================//
  //  Get Species, description, catch rate, gender ratio
  const fetchPokemonData = async (name) => {
