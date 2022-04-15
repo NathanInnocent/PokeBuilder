@@ -2,8 +2,11 @@
 
 const express = require("express");
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const PORT = 4000;
+const { getAllPokemons, RegisterAccount, loginAccount } = require("./handlers");
 
 express()
  .use(function (req, res, next) {
@@ -11,13 +14,31 @@ express()
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
  })
+ .use(cors())
  .use(morgan("tiny"))
  .use(express.static("./server/assets"))
- .use(express.json())
- .use(express.urlencoded({ extended: false }))
+ .use(express.json({ limit: "1mb" }))
+ .use(bodyParser.urlencoded({ extended: false }))
  .use("/", express.static(__dirname + "/"))
 
  // ======================== List of all enpoints ========================//
+
+ //IMPORTANT FOR DB=> UserAuthentication
+
+ // Gets list of all items in database
+ .get("/all-pokemons", getAllPokemons)
+ //Register Account
+ .post(`/register`, RegisterAccount)
+ //Login Account
+ .get("/login", loginAccount)
+ // Gets list of all items in database
+ //  .get("/pokemon-generation/:number", getItems)
+ //  // Gets list of specific item in database
+ //  .get("/pokemon-species", getItem)
+ // // Updates item when user buys items Nathan Version
+ // .get("/pokemon-evolution-chain", updateItemsNathan)
+ //  //
+ //  .get("/pokemon-ability")
 
  // Handles all the endpoints
  .get("*", (req, res) => {

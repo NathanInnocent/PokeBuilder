@@ -1,15 +1,13 @@
 import { useContext, useEffect } from "react";
 import { UserAuthenticationForm } from "./Auth/Form";
-import { PokemonCard } from "./Components/PokemonCard";
 import { PokemonDataContext } from "./Context/PokemonDataContext";
 import { Homepage } from "./Pages";
-
 import { SearchFilterPage } from "./Pages/MoreFilters";
-import { SinglePokemonPage } from "./Pages/SinglePokemon";
 
 // Routing
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { FilteredPokemonPage } from "./Pages/FilteredPokemon";
+import { SinglePokemonPage } from "./Pages/SinglePokemon";
 
 function App() {
  const { shownPokemons, getAllPokemon, allPokemonData } = useContext(PokemonDataContext);

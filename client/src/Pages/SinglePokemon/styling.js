@@ -58,7 +58,29 @@ export const Content = styled.div`
 export const ButtonTeam = styled.button`
  position: relative;
  cursor: pointer;
- margin: auto;
+ color: #8a8a8a;
+ display: block;
+ height: 44px;
+ padding: 5px 5%;
+ border: 1px solid #ccc;
+ -moz-border-radius: 27px;
+ -webkit-border-radius: 27px;
+ border-radius: 27px;
+ -moz-background-clip: padding;
+ -webkit-background-clip: padding-box;
+ background-clip: padding-box;
+ background-color: #fff;
+ font-family: "HelveticaNeue", "Arial", sans-serif;
+ font-size: 105%;
+ letter-spacing: 0.8px;
+
+ &:focus {
+  outline: ${(props) => props.outline};
+ }
+
+ &:hover {
+  outline: ${(props) => props.outline};
+ }
 `;
 
 export const StatValue = styled.p`

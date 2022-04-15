@@ -2,10 +2,10 @@ import { createContext, useState } from "react";
 
 export const CurrentPokemonTeamContext = createContext(null);
 
+// Change name to CurrentTeamProvider
 export const CurrentTeamContext = ({ children }) => {
  // CurrentUser
  const [currentPokemonTeam, setCurrentPokemonTeam] = useState([{}, {}, {}, {}, {}, {}]);
- console.log(`Team size`, currentPokemonTeam.length, `Team is,`, currentPokemonTeam);
 
  const addPokemonToTeam = (pokemonToAddData) => {
   let stateCopy = [...currentPokemonTeam];

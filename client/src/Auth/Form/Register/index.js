@@ -30,12 +30,33 @@ export const RegisterForm = ({ formStep, setFormStep }) => {
   validateInputs(object, setErrorMessage, errorMessage, formStep);
   showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
  };
+ const data = "hi";
 
  return (
   <Form
    onSubmit={(ev) => {
     ev.preventDefault();
-    console.log("Registering");
+    fetch(`http://localhost:4000/register`, {
+     headers: {
+      "Content-Type": "application/json",
+     },
+     method: "POST",
+     body: JSON.stringify({ username: registerUserInformation[`username`], password: registerUserInformation[`password`] }),
+    })
+     .then((response) => console.log(response))
+     .catch((error) => console.log(error));
+    /* .then((res) => res.json())
+     .then((data) => {
+      if (data.status >= 200 && data.status <= 299) {
+       setFormStep(200);
+       return data;
+      } else {
+       throw data.message;
+      }
+     })
+     .catch((error) => {
+      console.log(error);
+     }); */
    }}
   >
    <Container>

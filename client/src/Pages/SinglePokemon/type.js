@@ -1,10 +1,16 @@
+import { useContext } from "react";
 import { getColorPallate } from "../../Components/PokemonCard/typeLogic";
+import { CurrentPokemonContext } from "./context";
 import { FlexHorizontalContainer, TypeLabel } from "./styling";
 
-export const Type = ({ data }) => {
+export const Type = () => {
+ const {
+  currentPokemon: { types },
+ } = useContext(CurrentPokemonContext);
+
  return (
   <FlexHorizontalContainer>
-   {data.map((availableType, index) => {
+   {types.map((availableType, index) => {
     // Get color schema for each available type
     const { numberColor } = getColorPallate(availableType.type.name);
 

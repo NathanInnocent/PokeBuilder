@@ -31,6 +31,14 @@ export const SignInForm = ({ formStep, setFormStep }) => {
    onSubmit={(ev) => {
     ev.preventDefault();
     console.log("Signing in");
+    fetch(`http://localhost:4000/login`, {
+     headers: {
+      "Content-Type": "application/json",
+     },
+     method: "GET",
+    })
+     .then((response) => console.log(response))
+     .catch((error) => console.log(error));
    }}
   >
    <Container>

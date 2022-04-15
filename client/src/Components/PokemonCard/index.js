@@ -12,10 +12,6 @@ export const PokemonCard = ({ info }) => {
  const { backgroundColor, numberColor, nameColor } = getColorPallate(primaryType);
  const displayedPokemonId = convertPokemonId(id);
 
- const capitalizeFirstLetter = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
- };
-
  return (
   <SmallPokemonCard
    onClick={() => {
@@ -24,7 +20,7 @@ export const PokemonCard = ({ info }) => {
    style={{ backgroundColor: `${backgroundColor}` }}
   >
    <ID style={{ color: `${numberColor}` }}>{displayedPokemonId}</ID>
-   <Name style={{ color: `${nameColor}` }}>{capitalizeFirstLetter(name)}</Name>
+   <Name style={{ color: `${nameColor}`, textTransform: "capitalize" }}>{name}</Name>
    <div style={{ display: "flex", gap: "10px" }}>
     {types.map((data, index) => {
      const { icon } = getTypeIcon(data.type.name);

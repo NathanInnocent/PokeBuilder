@@ -25,7 +25,6 @@ export const GridGenerations = ({ columns, handleSearch }) => {
   const initUrl = `https://pokeapi.co/api/v2/generation/${generationId}/`;
   const response = await fetch(initUrl);
   const data = await response.json();
-  console.log("data chcking", data);
 
   const getPokemonInformation = async (result) => {
    result.forEach(async (pokemon) => {
@@ -42,10 +41,6 @@ export const GridGenerations = ({ columns, handleSearch }) => {
   navigate("/home");
  };
 
- const capitalizeFirstLetter = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
- };
-
  return (
   <>
    <h2>Sort by Generation</h2>
@@ -55,7 +50,7 @@ export const GridGenerations = ({ columns, handleSearch }) => {
      const { img } = getGenerationImage(generation);
      return (
       <Button value={index + 1} onClick={() => changeGenerations(index + 1)} key={index} style={{ backgroundColor: `${backgroundColor}` }}>
-       <Text style={{ color: `${numberColor}` }}>{capitalizeFirstLetter(generation)}</Text>
+       <Text style={{ color: `${numberColor}`, textTransform: "capitalize" }}>{generation}</Text>
        <Icon disabled value={index + 1} src={img} alt={`${generation}_icon`} style={{ width: "100px", height: "50px", top: "0", borderRadius: "0", zIndex: 0 }} />
       </Button>
      );

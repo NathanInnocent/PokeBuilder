@@ -8,7 +8,6 @@ export const FilteredPokemonPage = () => {
  const { allPokemonData } = useContext(PokemonDataContext);
 
  const [filteredPokemonList, setFilteredPokemonList] = useState(null);
- console.log(filteredPokemonList);
 
  useEffect(() => {
   let filteredPokemons = allPokemonData.filter((pokemonContextData) => pokemonContextData.types.some((object) => object.type.name === criteria));
