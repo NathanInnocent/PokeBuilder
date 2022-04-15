@@ -48,6 +48,15 @@ export const Button = styled.button`
  font-size: 1em;
  margin: 10px;
  cursor: pointer;
+ &:hover {
+  box-shadow: 0 0 10px 0 #00d7c3 inset, 0 0 20px 2px #00d7c3;
+  border: 3px solid #00d7c3;
+ }
+ :focus {
+  outline: none;
+  box-shadow: 0 0 10px 0 #00d7c3 inset, 0 0 20px 2px #00d7c3;
+  border: 3px solid #00d7c3;
+ }
 `;
 
 export const Container = styled.div`
