@@ -3,7 +3,11 @@ import { CurrentPokemonTeamContext } from "../../Context/CurrentPokemonTeamConte
 import { TeamCard } from "./Card";
 
 export const PokemonTeam = () => {
- const { currentPokemonTeam } = useContext(CurrentPokemonTeamContext);
+ const { currentPokemonTeam, postPokemonTeam } = useContext(CurrentPokemonTeamContext);
+ let isTeamIncomplete = currentPokemonTeam.some((pokemon) => Object.keys(pokemon).length === 0);
+
+ let pokemoname = currentPokemonTeam.map((pokemon) => pokemon.name);
+ console.log(pokemoname);
 
  return (
   <>
@@ -11,6 +15,7 @@ export const PokemonTeam = () => {
     {currentPokemonTeam.map((eachPokemon, index) => (
      <TeamCard key={index} pokemon={eachPokemon} />
     ))}
+    {isTeamIncomplete === false && <button onClick={() => postPokemonTeam("nathan", currentPokemonTeam)}>Post team</button>}
    </div>
   </>
  );

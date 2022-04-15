@@ -1,11 +1,17 @@
-import { useEffect, useState } from "react";
-// import { FormStepOneValidation } from "./Logic/ValidateStep1";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { CurrentUserContext } from "../../../Context/CurrentUserContext";
 import { Form, Button, Container, ErrorMessage, Input, InputContainer, FormTitle } from "../Components/FormStyles";
 import { hidePlaceHolderText, showPlaceHolderText } from "../Logic/PlaceholderText";
+import { registerAccount } from "../Logic/Submit";
 import { updateUserInformation } from "../Logic/UpdateInput";
 import { validateInputs } from "../Logic/Validation";
 
 export const RegisterForm = ({ formStep, setFormStep }) => {
+ const { setCurrentUser } = useContext(CurrentUserContext);
+
+ let navigate = useNavigate();
+
  // State to store user Information
  const [registerUserInformation, setRegisterUserInformation] = useState({
   username: "",
@@ -26,37 +32,29 @@ export const RegisterForm = ({ formStep, setFormStep }) => {
  // Place holder states
  const [placeHolderText, setPlaceHolderText] = useState({ username: "Pick a username", password: "Pick a password", confirmPassword: "Confirm password" });
 
- const handleBlur = (object) => {
-  validateInputs(object, setErrorMessage, errorMessage, formStep);
-  showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
+ const handleValidation = (value) => {
+  validateInputs(value, setErrorMessage, errorMessage, registerUserInformation);
+  showPlaceHolderText(value, setPlaceHolderText, placeHolderText, formStep);
  };
- const data = "hi";
+
+ const handleInputUpdate = (value) => {
+  updateUserInformation(value, setRegisterUserInformation, registerUserInformation);
+ };
 
  return (
   <Form
    onSubmit={(ev) => {
     ev.preventDefault();
-    fetch(`http://localhost:4000/register`, {
-     headers: {
-      "Content-Type": "application/json",
-     },
-     method: "POST",
-     body: JSON.stringify({ username: registerUserInformation[`username`], password: registerUserInformation[`password`] }),
-    })
-     .then((response) => console.log(response))
-     .catch((error) => console.log(error));
-    /* .then((res) => res.json())
-     .then((data) => {
-      if (data.status >= 200 && data.status <= 299) {
-       setFormStep(200);
-       return data;
-      } else {
-       throw data.message;
-      }
-     })
-     .catch((error) => {
-      console.log(error);
-     }); */
+    registerAccount(registerUserInformation, errorMessage).then((response) => {
+     const { status, message } = response;
+     if (status >= 200 && status <= 299) {
+      const { username } = registerUserInformation;
+      setCurrentUser({ user: username });
+      navigate("/home");
+     } else {
+      console.log(response);
+     }
+    });
    }}
   >
    <Container>
@@ -68,12 +66,11 @@ export const RegisterForm = ({ formStep, setFormStep }) => {
       placeholder={placeHolderText.username}
       name="username"
       type="text"
-      onBlur={(object) => {
-       showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
-       validateInputs(object, setErrorMessage, errorMessage, formStep);
-      }}
       onFocus={(object) => hidePlaceHolderText(object, setPlaceHolderText, placeHolderText)}
-      onChange={(object) => updateUserInformation(object, setRegisterUserInformation, registerUserInformation)}
+      onInput={(object) => {
+       handleValidation(object);
+       handleInputUpdate(object);
+      }}
       autoComplete="none"
      />
      {errorMessage.username && <ErrorMessage>{errorMessage.username}</ErrorMessage>}
@@ -86,13 +83,12 @@ export const RegisterForm = ({ formStep, setFormStep }) => {
       placeholder={placeHolderText.password}
       name="password"
       type="password"
-      //===== Error handling && Placeholder text Start
-      onBlur={(object) => handleBlur(object)}
       onFocus={(object) => hidePlaceHolderText(object, setPlaceHolderText, placeHolderText)}
-      //===== Error handling && Placeholder text End
-
       //===== Update user information
-      onChange={(object) => updateUserInformation(object, setRegisterUserInformation, registerUserInformation)}
+      onInput={(object) => {
+       handleValidation(object);
+       handleInputUpdate(object);
+      }}
       autoComplete="none"
      />
      {errorMessage.password && <ErrorMessage>{errorMessage.password}</ErrorMessage>}
@@ -105,13 +101,12 @@ export const RegisterForm = ({ formStep, setFormStep }) => {
       placeholder={placeHolderText.confirmPassword}
       name="confirmPassword"
       type="password"
-      //===== Error handling && Placeholder text Start
-      onBlur={(object) => handleBlur(object)}
       onFocus={(object) => hidePlaceHolderText(object, setPlaceHolderText, placeHolderText)}
-      //===== Error handling && Placeholder text End
-
       //===== Update user information
-      onInput={(object) => updateUserInformation(object, setRegisterUserInformation, registerUserInformation)}
+      onInput={(object) => {
+       handleValidation(object);
+       handleInputUpdate(object);
+      }}
       autoComplete="none"
      />
      {errorMessage.confirmPassword && <ErrorMessage>{errorMessage.confirmPassword}</ErrorMessage>}

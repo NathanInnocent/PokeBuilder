@@ -1,10 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 export const CurrentPokemonTeamContext = createContext(null);
 
 // Change name to CurrentTeamProvider
-export const CurrentTeamContext = ({ children }) => {
- // CurrentUser
+export const CurrentTeamProvider = ({ children }) => {
+ const { currentUser } = useContext(CurrentUserContext);
+
  const [currentPokemonTeam, setCurrentPokemonTeam] = useState([{}, {}, {}, {}, {}, {}]);
 
  const addPokemonToTeam = (pokemonToAddData) => {
@@ -39,6 +41,41 @@ export const CurrentTeamContext = ({ children }) => {
   }
  };
 
+ const postPokemonTeam = async () => {
+  const username = currentUser?.user || null;
+  //Stop process if no username
+  if (username === null) return console.log("This feature is only available to logged in users.");
+  console.log("username", username, "pokemonTeam", currentPokemonTeam);
+  //  Search State to see if there's an empty object // True || false
+  let index = currentPokemonTeam.some((currentTeam) => Object.keys(currentTeam).length === 0);
+
+  // Pokemon team is not full, return
+  if (index === true) return console.log("Your Pokemon team is not full. Please add Pokemons to your team.");
+  else {
+   // Pokemon team is full, post it
+   await fetch(`http://localhost:4000/api/pokemon-team`, {
+    headers: {
+     "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({ username, team: currentPokemonTeam }),
+   })
+    .then((res) => res.json())
+    .then((data) => {
+     if (data.status >= 200 && data.status <= 299) {
+      //{ status: 200, message: "Account created successfully!" }
+      console.log("success", data);
+      return data;
+     } else {
+      throw data;
+     }
+    })
+    .catch((error) => {
+     console.log("error", error);
+    });
+  }
+ };
+
  return (
   <CurrentPokemonTeamContext.Provider
    value={{
@@ -46,6 +83,7 @@ export const CurrentTeamContext = ({ children }) => {
     setCurrentPokemonTeam,
     addPokemonToTeam,
     removePokemonFromTeam,
+    postPokemonTeam,
    }}
   >
    {children}

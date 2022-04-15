@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 // import { FormStepOneValidation } from "./Logic/ValidateStep1";
 import { Form, Button, Container, ErrorMessage, Input, InputContainer, FormTitle } from "../Components/FormStyles";
 import { hidePlaceHolderText, showPlaceHolderText } from "../Logic/PlaceholderText";
 import { updateUserInformation } from "../Logic/UpdateInput";
 import { validateInputs } from "../Logic/Validation";
 import { useNavigate } from "react-router-dom";
+import { loginAccount } from "../Logic/Submit";
+import { CurrentUserContext } from "../../../Context/CurrentUserContext";
 
 export const SignInForm = ({ formStep, setFormStep }) => {
+ const { setCurrentUser } = useContext(CurrentUserContext);
+
  let navigate = useNavigate();
 
  // State to store user Information
@@ -26,19 +30,31 @@ export const SignInForm = ({ formStep, setFormStep }) => {
  // Place holder states for this form
  const [placeHolderText, setPlaceHolderText] = useState({ username: "Username", password: "Password" });
 
+ const handleValidation = (value) => {
+  validateInputs(value, setErrorMessage, errorMessage, loginUserInformation);
+  showPlaceHolderText(value, setPlaceHolderText, placeHolderText, formStep);
+ };
+
+ const handleInputUpdate = (value) => {
+  updateUserInformation(value, setLoginUserInformation, loginUserInformation);
+ };
+
  return (
   <Form
    onSubmit={(ev) => {
     ev.preventDefault();
-    console.log("Signing in");
-    fetch(`http://localhost:4000/login`, {
-     headers: {
-      "Content-Type": "application/json",
-     },
-     method: "GET",
-    })
-     .then((response) => console.log(response))
-     .catch((error) => console.log(error));
+
+    loginAccount(loginUserInformation, errorMessage).then((response) => {
+     const { status, message } = response;
+     if (status >= 200 && status <= 299) {
+      const { username } = loginUserInformation;
+      console.log(response);
+      setCurrentUser({ user: username });
+      navigate("/home");
+     } else {
+      console.log(response);
+     }
+    });
    }}
   >
    <Container>
@@ -50,12 +66,11 @@ export const SignInForm = ({ formStep, setFormStep }) => {
       placeholder={placeHolderText.username}
       name="username"
       type="text"
-      onBlur={(object) => {
-       validateInputs(object, setErrorMessage, errorMessage, formStep);
-       showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
-      }}
       onFocus={(object) => hidePlaceHolderText(object, setPlaceHolderText, placeHolderText)}
-      onChange={(object) => updateUserInformation(object, setLoginUserInformation, loginUserInformation)}
+      onInput={(object) => {
+       handleValidation(object);
+       handleInputUpdate(object);
+      }}
       autoComplete="none"
      />
      {errorMessage.username && <ErrorMessage>{errorMessage.username}</ErrorMessage>}
@@ -67,12 +82,11 @@ export const SignInForm = ({ formStep, setFormStep }) => {
       placeholder={placeHolderText.password}
       name="password"
       type="password"
-      onBlur={(object) => {
-       validateInputs(object, setErrorMessage, errorMessage, formStep);
-       showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
-      }}
       onFocus={(object) => hidePlaceHolderText(object, setPlaceHolderText, placeHolderText)}
-      onChange={(object) => updateUserInformation(object, setLoginUserInformation, loginUserInformation)}
+      onInput={(object) => {
+       handleValidation(object);
+       handleInputUpdate(object);
+      }}
       autoComplete="none"
      />
      {errorMessage.password && <ErrorMessage>{errorMessage.password}</ErrorMessage>}
@@ -86,13 +100,7 @@ export const SignInForm = ({ formStep, setFormStep }) => {
      >
       Register
      </Button>
-     <Button
-      onClick={() => {
-       navigate("/home");
-      }}
-     >
-      Login
-     </Button>
+     <Button type="submit">Login</Button>
     </div>
    </Container>
   </Form>
