@@ -8,8 +8,9 @@ const { MongoClient } = require("mongodb");
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 const DB_NAME = "PokeBuilder";
-const Pokemon_Collection = "Pokemons";
-const User_Collection = "Users";
+const POKEMON_COLLECTION = "Pokemons";
+const USER_COLLECTION = "Users";
+const TEAM_COLLECTION = "Teams";
 const options = {
  useNewUrlParser: true,
  useUnifiedTopology: true,
@@ -21,65 +22,12 @@ const getAllPokemons = async (req, res) => {
  try {
   await client.connect();
   const db = client.db(DB_NAME);
-  let listOfItems = await db.collection(Pokemon_Collection).find().toArray();
+  let listOfItems = await db.collection(POKEMON_COLLECTION).find().toArray();
   res.status(200).json({
    status: 200,
    data: listOfItems,
    message: "Items retrieved succesfully",
   });
- } catch {
-  res.status(500).json({
-   status: 500,
-   message: "The server is currently unable to handle this request.",
-  });
- } finally {
-  // Close connection
-  client.close();
- }
-};
-
-// Function to get all of the items inside the database
-const getItems = async (req, res) => {
- try {
-  await client.connect();
-  const db = client.db(DB_NAME);
-  let listOfItems = await db.collection(User_Collection).find().toArray();
-  res.status(200).json({
-   status: 200,
-   data: listOfItems,
-   message: "Items retrieved succesfully",
-  });
- } catch {
-  res.status(500).json({
-   status: 500,
-   message: "The server is currently unable to handle this request.",
-  });
- } finally {
-  // Close connection
-  client.close();
- }
-};
-
-// Function to get one item inside the database
-const getItem = async (req, res) => {
- const { itemId } = req.params;
- const query = { _id: parseInt(itemId) };
- try {
-  await client.connect();
-  const db = client.db(DB_NAME);
-  let item = await db.collection(User_Collection).find(query).toArray();
-  if (item.length) {
-   res.status(200).json({
-    status: 200,
-    data: item,
-    message: "Item retrieved succesfully",
-   });
-  } else {
-   res.status(404).json({
-    status: 404,
-    message: "Item with that ID does not exist",
-   });
-  }
  } catch {
   res.status(500).json({
    status: 500,
@@ -109,7 +57,7 @@ const RegisterAccount = async (req, res) => {
    const query = { username: receivedData.username };
    await client.connect();
    const db = client.db(DB_NAME);
-   let usersInsideDatabase = await db.collection(User_Collection).find(query).toArray();
+   let usersInsideDatabase = await db.collection(USER_COLLECTION).find(query).toArray();
 
    //Username already inside database
    if (usersInsideDatabase.length != 0) {
@@ -122,7 +70,7 @@ const RegisterAccount = async (req, res) => {
    // Username not in database => proceed with account creation
    else {
     const { username, password } = receivedData;
-    const result = await db.collection(User_Collection).insertOne({ username, password });
+    const result = await db.collection(USER_COLLECTION).insertOne({ username, password });
     res.status(200).json({
      status: 200,
      message: "Account created successfully!",
@@ -157,7 +105,7 @@ const loginAccount = async (req, res) => {
    const query = { username: receivedData.username };
    await client.connect();
    const db = client.db(DB_NAME);
-   let usersInsideDatabase = await db.collection(User_Collection).find(query).toArray();
+   let usersInsideDatabase = await db.collection(USER_COLLECTION).find(query).toArray();
 
    //Nothing found, no user exists with username
    if (usersInsideDatabase.length === 0) {
@@ -171,10 +119,11 @@ const loginAccount = async (req, res) => {
    else {
     const { username, password } = receivedData;
     //Password submitted not the one stored in database
-    if (usersInsideDatabase.password !== password) {
+    if (usersInsideDatabase[0].password !== password) {
+     console.log(usersInsideDatabase.password, "vs", password);
      res.status(400).json({
       status: 400,
-      message: "Wrong Password.",
+      message: "Wrong Username/Password.",
      });
     }
     //Passwords match
@@ -197,10 +146,51 @@ const loginAccount = async (req, res) => {
  }
 };
 
+const postPokemonTeam = async (req, res) => {
+ console.log("received request");
+ const receivedData = req.body;
+ //Data should look like this: {username: "", team: [{...}, {...}x6]}
+ //Check if username exists
+ if (receivedData.username === "") {
+  //No username
+  res.status(400).json({
+   status: 400,
+   message: "Please sign in to use this feature.",
+  });
+ }
+ //Check if team has empty field
+ else if (receivedData.team.some((pokemonData) => Object.values(pokemonData).length === 0)) {
+  res.status(400).json({
+   status: 400,
+   message: "Please fill up your team before posting it.",
+  });
+ }
+ //User meets all conditions
+ else {
+  try {
+   await client.connect();
+   const db = await client.db(DB_NAME);
+   await db.collection(TEAM_COLLECTION).insertOne({ username: receivedData.username, team: receivedData.team });
+
+   res.status(200).json({
+    status: 200,
+    message: "Team posted successfully!",
+   });
+  } catch {
+   res.status(500).json({
+    status: 500,
+    message: "PokeBuilder is currently unable to handle this request. Please contact support if problem pursists.",
+   });
+  } finally {
+   // Close connections
+   client.close();
+  }
+ }
+};
+
 module.exports = {
  getAllPokemons,
- getItems,
- getItem,
  RegisterAccount,
  loginAccount,
+ postPokemonTeam,
 };

@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const PORT = 4000;
-const { getAllPokemons, RegisterAccount, loginAccount } = require("./handlers");
+const { getAllPokemons, RegisterAccount, loginAccount, postPokemonTeam } = require("./handlers");
 
 express()
  .use(function (req, res, next) {
@@ -17,7 +17,7 @@ express()
  .use(cors())
  .use(morgan("tiny"))
  .use(express.static("./server/assets"))
- .use(express.json({ limit: "1mb" }))
+ .use(express.json({ limit: "5mb" }))
  .use(bodyParser.urlencoded({ extended: false }))
  .use("/", express.static(__dirname + "/"))
 
@@ -26,11 +26,13 @@ express()
  //IMPORTANT FOR DB=> UserAuthentication
 
  // Gets list of all items in database
- .get("/all-pokemons", getAllPokemons)
+ .get("/api/all-pokemons", getAllPokemons)
  //Register Account
- .post(`/register`, RegisterAccount)
+ .post(`/api/register`, RegisterAccount)
  //Login Account
- .get("/login", loginAccount)
+ .post("/api/login", loginAccount)
+ //Post a team
+ .post("/api/pokemon-team", postPokemonTeam)
  // Gets list of all items in database
  //  .get("/pokemon-generation/:number", getItems)
  //  // Gets list of specific item in database
