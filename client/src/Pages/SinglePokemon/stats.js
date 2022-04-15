@@ -8,9 +8,13 @@ import { CurrentPokemonContext } from "./context";
 export const Stats = () => {
  const { currentPokemon, statsDetail } = useContext(CurrentPokemonContext);
 
+ //Stats details looks like this
+ //{hp: 45, attack: 49, defense: 49, speed: 45, specialAttack: 65, …}
+
  const primaryType = currentPokemon.types[0].type.name;
  const { backgroundColor, numberColor, nameColor } = getColorPallate(primaryType);
  const [radarConfigData, setRadarConfigData] = useState(null);
+
  const [data, setData] = useState(null);
 
  let defaultConfig = {
@@ -20,7 +24,8 @@ export const Stats = () => {
    {
     label: `${currentPokemon.name} stats`,
     // Values of the stats
-    data: data,
+    // [45, 49, 49, 45, 65, …]
+    data: Object.values(statsDetail),
     fill: true,
     // Make the radar same hue as pokemon type
     backgroundColor: backgroundColor,
@@ -36,11 +41,7 @@ export const Stats = () => {
  useEffect(() => {
   setRadarConfigData({ ...defaultConfig });
   setData(Object.values(statsDetail));
- }, [currentPokemon]);
-
- useEffect(() => {
-  console.log("stats changed");
- }, [statsDetail, currentPokemon]);
+ }, [currentPokemon, statsDetail]);
 
  //Options for chart
  const options = {
