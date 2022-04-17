@@ -43,7 +43,7 @@ export const SignInForm = ({ formStep, setFormStep }) => {
   <Form
    onSubmit={(ev) => {
     ev.preventDefault();
-
+    setserverResponseMessage("");
     loginAccount(loginUserInformation, errorMessage).then((response) => {
      const { status, message } = response;
      if (status >= 200 && status <= 299) {
@@ -52,7 +52,7 @@ export const SignInForm = ({ formStep, setFormStep }) => {
       setCurrentUser({ user: username });
       navigate("/home");
      } else {
-      console.log(response);
+      setserverResponseMessage(message);
      }
     });
    }}
@@ -91,6 +91,8 @@ export const SignInForm = ({ formStep, setFormStep }) => {
      />
      {errorMessage.password && <ErrorMessage>{errorMessage.password}</ErrorMessage>}
     </InputContainer>
+    {/* Only show div if there's a server error message */}
+    {serverResponseMessage && <ErrorMessage>{serverResponseMessage}</ErrorMessage>}
     {/* Button to login */}
     <div style={{ display: "flex", justifyContent: "space-between" }}>
      <Button

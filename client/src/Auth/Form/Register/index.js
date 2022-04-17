@@ -45,14 +45,16 @@ export const RegisterForm = ({ formStep, setFormStep }) => {
   <Form
    onSubmit={(ev) => {
     ev.preventDefault();
+    setserverResponseMessage("");
     registerAccount(registerUserInformation, errorMessage).then((response) => {
      const { status, message } = response;
      if (status >= 200 && status <= 299) {
       const { username } = registerUserInformation;
       setCurrentUser({ user: username });
+      setserverResponseMessage("");
       navigate("/home");
      } else {
-      console.log(response);
+      setserverResponseMessage(message);
      }
     });
    }}
@@ -111,7 +113,7 @@ export const RegisterForm = ({ formStep, setFormStep }) => {
      />
      {errorMessage.confirmPassword && <ErrorMessage>{errorMessage.confirmPassword}</ErrorMessage>}
     </InputContainer>
-
+    {serverResponseMessage && <ErrorMessage>{serverResponseMessage}</ErrorMessage>}
     {/* Button to register */}
     <div style={{ display: "flex", justifyContent: "space-between" }}>
      <Button onClick={() => setFormStep("signIn")}>Back</Button>
