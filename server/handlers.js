@@ -147,11 +147,12 @@ const loginAccount = async (req, res) => {
 };
 
 const postPokemonTeam = async (req, res) => {
- console.log("received request");
  const receivedData = req.body;
+ console.log("received request", receivedData);
  //Data should look like this: {username: "", team: [{...}, {...}x6]}
  //Check if username exists
  if (receivedData.username === "") {
+  console.log("No username");
   //No username
   res.status(400).json({
    status: 400,
@@ -160,6 +161,7 @@ const postPokemonTeam = async (req, res) => {
  }
  //Check if team has empty field
  else if (receivedData.team.some((pokemonData) => Object.values(pokemonData).length === 0)) {
+  console.log("No team");
   res.status(400).json({
    status: 400,
    message: "Please fill up your team before posting it.",
@@ -171,12 +173,14 @@ const postPokemonTeam = async (req, res) => {
    await client.connect();
    const db = await client.db(DB_NAME);
    await db.collection(TEAM_COLLECTION).insertOne({ username: receivedData.username, team: receivedData.team });
+   console.log("Team posted" + receivedData.username + " " + receivedData.team);
 
    res.status(200).json({
     status: 200,
     message: "Team posted successfully!",
    });
   } catch {
+   console.log("Error");
    res.status(500).json({
     status: 500,
     message: "PokeBuilder is currently unable to handle this request. Please contact support if problem pursists.",
@@ -188,9 +192,32 @@ const postPokemonTeam = async (req, res) => {
  }
 };
 
+const getPokemonTeam = async (req, res) => {
+ console.log("getPokemonTeam");
+ try {
+  await client.connect();
+  const db = client.db(DB_NAME);
+  let listOfItems = await db.collection(TEAM_COLLECTION).find().toArray();
+  res.status(200).json({
+   status: 200,
+   data: listOfItems,
+   message: "Items retrieved succesfully",
+  });
+ } catch {
+  res.status(500).json({
+   status: 500,
+   message: "The server is currently unable to handle this request.",
+  });
+ } finally {
+  // Close connection
+  client.close();
+ }
+};
+
 module.exports = {
  getAllPokemons,
  RegisterAccount,
  loginAccount,
  postPokemonTeam,
+ getPokemonTeam,
 };
