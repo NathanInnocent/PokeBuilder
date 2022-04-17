@@ -41,37 +41,48 @@ export const CurrentTeamProvider = ({ children }) => {
   }
  };
 
- const postPokemonTeam = async () => {
+ const postPokemonTeam = async (setFetchResponse) => {
+  //init remove serverResponse
+  setFetchResponse(null);
   const username = currentUser?.user || null;
   //Stop process if no username
-  if (username === null) return console.log("This feature is only available to logged in users.");
+  if (username === null) return setFetchResponse({ status: 400, message: "This feature is only available to logged in users." });
   console.log("username", username, "pokemonTeam", currentPokemonTeam);
   //  Search State to see if there's an empty object // True || false
   let index = currentPokemonTeam.some((currentTeam) => Object.keys(currentTeam).length === 0);
 
   // Pokemon team is not full, return
-  if (index === true) return console.log("Your Pokemon team is not full. Please add Pokemons to your team.");
+  if (index === true) return setFetchResponse({ status: 400, message: "Your Pokemon team is not full. Please add Pokemons to your team." });
   else {
    // Pokemon team is full, post it
+   // Reduce pokemonTeam object to save save to database
+   const pokemonTeamObject = currentPokemonTeam.map((pokemon) => {
+    const { name, sprites } = pokemon;
+    return { name, sprites };
+   });
    await fetch(`http://localhost:4000/api/pokemon-team`, {
     headers: {
      "Content-Type": "application/json",
     },
     method: "POST",
-    body: JSON.stringify({ username, team: currentPokemonTeam }),
+    body: JSON.stringify({ username, team: pokemonTeamObject }),
    })
     .then((res) => res.json())
     .then((data) => {
-     if (data.status >= 200 && data.status <= 299) {
-      //{ status: 200, message: "Account created successfully!" }
+     // Posted successfully
+     const { status, message } = data;
+     if (status >= 200 && status <= 299) {
+      //  Remove current pokemon team
+      setCurrentPokemonTeam([{}, {}, {}, {}, {}, {}]);
       console.log("success", data);
-      return data;
+      return setFetchResponse({ status: 200, message: message });
      } else {
       throw data;
      }
     })
     .catch((error) => {
      console.log("error", error);
+     return setFetchResponse(error.message);
     });
   }
  };

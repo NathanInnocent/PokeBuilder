@@ -3,16 +3,19 @@ import { Filters } from "../../Components/Filters";
 import { PokemonCard } from "../../Components/PokemonCard";
 import { PokemonTeam } from "../../Components/PokemonTeam";
 import { SearchBar } from "../../Components/SearchBar";
+import { CurrentPokemonTeamContext } from "../../Context/CurrentPokemonTeamContext";
 import { PokemonDataContext } from "../../Context/PokemonDataContext";
 import { Content } from "../SinglePokemon/styling";
 
 export const Homepage = () => {
  const { shownPokemons, viewedGeneration } = useContext(PokemonDataContext);
 
+ const { currentPokemonTeam } = useContext(CurrentPokemonTeamContext);
+
  return (
   <Content>
    <SearchBar displayButton="none" />
-   <PokemonTeam />
+   <PokemonTeam pokemon={currentPokemonTeam} />
    <Filters />
 
    <div>{`Viewing ${viewedGeneration} Pokemons`}</div>

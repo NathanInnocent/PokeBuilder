@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const PORT = 4000;
-const { getAllPokemons, RegisterAccount, loginAccount, postPokemonTeam } = require("./handlers");
+const { getAllPokemons, RegisterAccount, loginAccount, postPokemonTeam, getPokemonTeam } = require("./handlers");
 
 express()
  .use(function (req, res, next) {
@@ -33,6 +33,8 @@ express()
  .post("/api/login", loginAccount)
  //Post a team
  .post("/api/pokemon-team", postPokemonTeam)
+ //Post a team
+ .get("/api/pokemon-team", getPokemonTeam)
  // Gets list of all items in database
  //  .get("/pokemon-generation/:number", getItems)
  //  // Gets list of specific item in database
