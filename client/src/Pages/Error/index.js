@@ -3,10 +3,12 @@ import snorlax from "../../Assets/Gifs/Snorlax_Sleeping.gif";
 
 export const ErrorPage = () => {
  //Change body color to match pokemon type
+
  useEffect(() => {
   window.scrollTo(0, 0);
   document.body.style.backgroundColor = "white";
  }, []);
+
  return (
   <>
    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", marginTop: "200px" }}>
