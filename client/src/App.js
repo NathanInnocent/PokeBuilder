@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { UserAuthenticationForm } from "./Auth/Form";
 import { PokemonDataContext } from "./Context/PokemonDataContext";
-import { Homepage } from "./Pages";
+import { PokedexPage } from "./Pages";
 import { SearchFilterPage } from "./Pages/MoreFilters";
 
 // Routing
@@ -10,6 +10,8 @@ import { FilteredPokemonPage } from "./Pages/FilteredPokemon";
 import { SinglePokemonPage } from "./Pages/SinglePokemon";
 import { NavigationBar } from "./Components/NavigationBar";
 import { PostedTeamsPage } from "./Pages/PostedTeams";
+import { ErrorPage } from "./Pages/Error";
+import { Loading } from "./Components/Loading";
 
 function App() {
  const { shownPokemons, getAllPokemon, allPokemonData } = useContext(PokemonDataContext);
@@ -28,18 +30,19 @@ function App() {
       <NavigationBar />
       <Routes>
        <Route path="/" element={<UserAuthenticationForm />} />
-       <Route path="/home" element={<Homepage />} />
+       <Route path="/home" element={<>homepage</>} />
+       <Route path="/pokedex" element={<PokedexPage />} />
        <Route path="/pokemon/filter" element={<SearchFilterPage />} />
        <Route path="/pokemon/filter/:criteria" element={<FilteredPokemonPage />} />
        <Route path="/pokemon/:searchedPokemon" element={<SinglePokemonPage />} />
        <Route path="/teams" element={<PostedTeamsPage />} />
-       <Route path="*" element={<div>There was an error</div>} />
+       <Route path="*" element={<ErrorPage />} />
       </Routes>
      </Router>
     </>
    )}
    {/* Loading animation */}
-   {allPokemonData.length < 1126 && <>Loading...</>}
+   {allPokemonData.length < 1126 && <Loading />}
   </>
  );
 }
