@@ -50,7 +50,7 @@ export const COLOR = {
  // Rock type: |
  rock_card: "hsl(40deg, 28%, 59%)",
  rock_ID: "hsl(44deg, 38%, 30%)",
- rock_name: "hsl(44deg, 38%, 46%)",
+ rock_name: "hsl(44deg, 98%, 16%)",
 
  // Ground type: |
  ground_card: "hsl(21, 61%, 36%)",
