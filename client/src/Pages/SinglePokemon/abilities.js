@@ -1,29 +1,52 @@
-import { useContext, useState } from "react";
-import { useFetch } from "../../Hooks/useFetch";
+import { useContext } from "react";
+import styled from "styled-components";
 import { CurrentPokemonContext } from "./context";
 import { FlexVerticalContainer } from "./styling";
 
 export const Abilities = () => {
- const { currentPokemon } = useContext(CurrentPokemonContext);
- const { abilities } = currentPokemon;
-
- const fetchAbilityEffect = async (url) => {
-  const initUrl = `${url}`;
-  const response = await fetch(initUrl);
-  const data = await response.json();
-  let englishData = data.effect_entries.filter((data) => data.language.name === "en");
- };
-
+ const { abilityEffect } = useContext(CurrentPokemonContext);
  return (
-  <FlexVerticalContainer>
-   <p>Ability</p>
-   {abilities.map((abilityObject, index) => {
-    let isHidden = abilityObject.is_hidden;
-    let name = abilityObject.ability.name;
-    let abilityEffect = fetchAbilityEffect(abilityObject.ability.url);
-
-    return <div key={index}>{name}</div>;
-   })}
-  </FlexVerticalContainer>
+  <>
+   {abilityEffect && (
+    <FlexVerticalContainer>
+     <Table>
+      <Tr>
+       <th style={{ width: "12%" }}>Ability</th>
+       <th style={{ width: "70%", paddingLeft: "20px" }}>Effect</th>
+       <th>Hidden Ability</th>
+      </Tr>
+      {abilityEffect.map((ability, index) => {
+       const { name, effect, is_hidden } = ability;
+       return (
+        <>
+         <Tr key={index}>
+          <td>{name}</td>
+          <td style={{ paddingLeft: "20px" }}>{effect}</td>
+          <td>{is_hidden ? "Yes" : "No"}</td>
+         </Tr>
+        </>
+       );
+      })}
+     </Table>
+    </FlexVerticalContainer>
+   )}
+  </>
  );
 };
+
+const Table = styled.table`
+ text-transform: capitalize;
+ text-align: left;
+ border-radius: 25px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+ padding: 2% 3%;
+ margin: auto;
+ transition: all 1s ease-in-out;
+ z-index: 5;
+`;
+
+const Tr = styled.tr`
+ &:hover {
+  background-color: #ddd;
+ }
+`;

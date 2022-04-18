@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { ErrorMessage } from "../../../Auth/Form/Components/FormStyles";
 import { CurrentPokemonTeamContext } from "../../../Context/CurrentPokemonTeamContext";
 import { CurrentPokemonContext } from "../context";
 import { ButtonTeam } from "../styling";
@@ -24,7 +25,7 @@ export const AddAndRemoveTeamButtons = () => {
      Remove from team
     </ButtonTeam>
    )}
-   {isPokemonTeamFull === true && <div>Current team is full</div>}
+   {isPokemonTeamFull === true && <ErrorMessage style={{ width: "15%", marginTop: "10px" }}>Current team is full</ErrorMessage>}
   </>
  );
 };

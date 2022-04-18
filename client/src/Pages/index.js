@@ -1,4 +1,4 @@
 import { SearchFilterPage } from "./MoreFilters";
-import { Homepage } from "./HomePage";
+import { PokedexPage } from "./PokedexPage";
 
-export { SearchFilterPage, Homepage };
+export { SearchFilterPage, PokedexPage };

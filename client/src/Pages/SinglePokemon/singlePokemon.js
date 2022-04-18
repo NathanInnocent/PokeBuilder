@@ -15,7 +15,7 @@ export const SinglePokemon = () => {
  let { searchedPokemon } = useParams();
  const { allPokemonData } = useContext(PokemonDataContext);
 
- const { statsDetail, setStatsDetail, speciesDetails, setSpeciesDetail, setEvolutionChainDetail, currentPokemon, setCurrentPokemon } = useContext(CurrentPokemonContext);
+ const { statsDetail, setStatsDetail, speciesDetails, setSpeciesDetail, setEvolutionChainDetail, currentPokemon, setCurrentPokemon, setAbilityEffect } = useContext(CurrentPokemonContext);
  //================ Gain Pokemon Species ================//
  //  Get Species, description, catch rate, gender ratio
  const fetchPokemonData = async (name) => {
@@ -62,10 +62,17 @@ export const SinglePokemon = () => {
  };
 
  //================ Gain Pokemon Abilities ================//
- const fetchAbility = async (url) => {
+ const fetchAbility = async (receivedAbilityObj) => {
+  let { is_hidden, ability } = receivedAbilityObj;
+
+  const url = ability.url;
+  const name = ability.name;
   const response = await fetch(url);
   const data = await response.json();
-  return data.effect_entries.filter((data) => data.language.name === "en")[0];
+  let englishData = data.effect_entries.filter((data) => data.language.name === "en")[0];
+  let abilityObject = { name, effect: englishData.short_effect, is_hidden };
+  setAbilityEffect((prevState) => [...prevState, abilityObject]);
+  return;
  };
 
  // Change pokemon whenever search query changes
@@ -73,7 +80,7 @@ export const SinglePokemon = () => {
   setCurrentPokemon(allPokemonData.filter((pokemonDataInsideContext) => pokemonDataInsideContext.name === searchedPokemon)[0]);
  }, [searchedPokemon]);
 
- // Fetch data once current pokemon changes
+ // FETCH POKEMON STATS || ABILITIES each change
  useEffect(() => {
   if (currentPokemon != null) {
    fetchPokemonData(currentPokemon.name);
@@ -105,10 +112,11 @@ export const SinglePokemon = () => {
     }
     return setStatsDetail(tempStatsState);
    });
-
+   //Resets ability effect
+   setAbilityEffect([]);
    currentPokemon.abilities.forEach((element) => {
     //  push to abilities array => state
-    fetchAbility(element.ability.url);
+    fetchAbility(element).then((res) => console.log(res));
    });
   }
  }, [currentPokemon]);

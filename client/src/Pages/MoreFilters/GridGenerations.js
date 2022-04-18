@@ -38,7 +38,7 @@ export const GridGenerations = ({ columns, handleSearch }) => {
 
   await getPokemonInformation(data.pokemon_species);
   setViewedGeneration(`Generation ${generationId}`);
-  navigate("/home");
+  navigate("/pokedex");
  };
 
  return (

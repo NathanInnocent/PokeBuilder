@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { getColorPallate } from "../../../Components/PokemonCard/typeLogic";
 import { PokemonTeam } from "../../../Components/PokemonTeam";
+import { PostTeamForm } from "../../../Components/PokemonTeam/PostTeamForm";
 import { SearchBar } from "../../../Components/SearchBar";
 import { CurrentPokemonTeamContext } from "../../../Context/CurrentPokemonTeamContext";
 import { CurrentPokemonContext } from "../context";
@@ -15,12 +16,19 @@ export const TopHalfOfPage = () => {
 
  const { backgroundColor } = getColorPallate(types[0].type.name);
 
+ //Change body color to match pokemon type
+ useEffect(() => {
+  window.scrollTo(0, 0);
+  document.body.style.backgroundColor = backgroundColor;
+ }, []);
+
  return (
   <>
    <Section style={{ backgroundColor: `${backgroundColor}` }}>
     <Content>
-     <SearchBar backNavigation="/home" />
+     <SearchBar backNavigation="/pokedex" />
      <PokemonTeam pokemon={currentPokemonTeam} />
+     <PostTeamForm />
      {/* Pokemon Name || ID number || Button && Images */}
      <ImageUI />
     </Content>

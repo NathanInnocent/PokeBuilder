@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { Filters } from "../../Components/Filters";
 import { PokemonCard } from "../../Components/PokemonCard";
 import { PokemonTeam } from "../../Components/PokemonTeam";
+import { PostTeamButton } from "../../Components/PokemonTeam/PostButton";
+import { PostTeamForm } from "../../Components/PokemonTeam/PostTeamForm";
 import { SearchBar } from "../../Components/SearchBar";
 import { CurrentPokemonTeamContext } from "../../Context/CurrentPokemonTeamContext";
 import { PokemonDataContext } from "../../Context/PokemonDataContext";
@@ -25,8 +27,9 @@ export const FilteredPokemonPage = () => {
   <Content>
    <SearchBar />
    <PokemonTeam pokemon={currentPokemonTeam} />
+   <PostTeamForm />
    {/* Found results */}
-   <div>{`Showing ${criteria} Type Pokemons`}</div>
+   <div style={{ fontSize: "1.5em", color: "black", fontWeight: "bold", marginTop: "20px" }}>{`Showing ${criteria} Type Pokemons`}</div>
    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", justifyItems: "center" }}>
     {Array.isArray(filteredPokemonList) && filteredPokemonList.length > 0 && filteredPokemonList.map((pokemon, index) => <PokemonCard key={index} info={pokemon} />)}
    </div>

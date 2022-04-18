@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+import { Form } from "../../Auth/Form/Components/FormStyles";
+import { Loading } from "../../Components/Loading";
 import { PokemonTeam } from "../../Components/PokemonTeam";
 
 export const PostedTeamsPage = () => {
@@ -37,15 +40,20 @@ export const PostedTeamsPage = () => {
 
  return (
   <>
+   {!fetchedPostedTeams && <Loading />}
    <div>
-    <>Posted teams</>
     {fetchedPostedTeams &&
      fetchedPostedTeams.map((postedTeam) => {
-      const { team, username } = postedTeam;
+      const { team, username, teamName } = postedTeam;
       return (
        <>
-        <div>Posted by {username}</div>
-        <PokemonTeam pokemon={team} />
+        <TeamContainer>
+         <div style={{ display: "flex", justifyContent: "space-between", textTransform: "capitalize", fontSize: "1.1em" }}>
+          <div>{teamName}</div>
+          <div>Posted by {username}</div>
+         </div>
+         <PokemonTeam pokemon={team} />
+        </TeamContainer>
        </>
       );
      })}
@@ -53,3 +61,18 @@ export const PostedTeamsPage = () => {
   </>
  );
 };
+
+const TeamContainer = styled.div`
+ position: relative;
+ width: 750px;
+ border-radius: 25px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+ background: hsl(0deg, 0%, 30%);
+ padding: 2% 3%;
+ color: #fff;
+ font-weight: bold;
+ margin: auto;
+ transition: all 1s ease-in-out;
+ z-index: 5;
+ margin-bottom: 50px;
+`;
