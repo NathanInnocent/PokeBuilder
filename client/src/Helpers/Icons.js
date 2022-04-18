@@ -25,6 +25,18 @@ import backArrow from "../Assets/Images/Icons/BackArrow.png";
 import magnifyingGlass from "../Assets/Images/Icons/SearchIcon.png";
 import filter from "../Assets/Images/Icons/Filter.png";
 
+//Navbar icons
+import inactiveHome from "../Assets/Images/Navbar/Home_Inactive.png";
+import activeHome from "../Assets/Images/Navbar/Home_Active.png";
+import inactivePokedex from "../Assets/Images/Navbar/Pokedex_Inactive.png";
+import activePokedex from "../Assets/Images/Navbar/Pokedex_Active.png";
+import inactiveTeam from "../Assets/Images/Navbar/Team_Inactive.png";
+import activeTeam from "../Assets/Images/Navbar/Team_Active.png";
+import inactiveSignIn from "../Assets/Images/Navbar/SignIn_Inactive.png";
+import activeSignIn from "../Assets/Images/Navbar/SignIn_Active.png";
+import inactiveLogout from "../Assets/Images/Navbar/LogOut_Inactive.png";
+import activeLogout from "../Assets/Images/Navbar/LogOut_Active.png";
+
 //Image
 import pokeballOutline from "../Assets/Images/Icons/PokeBall_Outline.png";
 import pokemonSilouhette from "../Assets/Images/Silhouettes/Pikachu.png";
@@ -43,6 +55,12 @@ import eight from "../Assets/Images/Starters/Gen8.png";
 import Charmander from "../Assets/Images/Test/Charmander.png";
 import Grookey from "../Assets/Images/Test/Grookey.png";
 import Ratatta from "../Assets/Images/Test/Ratatta.png";
+
+//gifs
+import togepi from "../Assets/Gifs/Togepi_Dancing.gif";
+import snorlax from "../Assets/Gifs/Snorlax_Sleeping.gif";
+
+export const GIFS = { togepi, snorlax };
 
 export const TYPE_ICON = {
  grass,
@@ -80,3 +98,6 @@ export { pokeballOutline, pokemonSilouhette };
 
 //Test pokemon
 export const POKEMON = { Charmander, Grookey, Ratatta };
+
+//Navbar icons
+export const NAVBAR = { inactiveHome, activeHome, inactivePokedex, activePokedex, inactiveTeam, activeTeam, inactiveSignIn, activeSignIn, inactiveLogout, activeLogout };
