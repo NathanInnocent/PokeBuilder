@@ -60,6 +60,9 @@ import Ratatta from "../Assets/Images/Test/Ratatta.png";
 import togepi from "../Assets/Gifs/Togepi_Dancing.gif";
 import snorlax from "../Assets/Gifs/Snorlax_Sleeping.gif";
 
+//Logo
+import header from "../Assets/Images/Title/Title.png";
+
 export const GIFS = { togepi, snorlax };
 
 export const TYPE_ICON = {
@@ -101,3 +104,5 @@ export const POKEMON = { Charmander, Grookey, Ratatta };
 
 //Navbar icons
 export const NAVBAR = { inactiveHome, activeHome, inactivePokedex, activePokedex, inactiveTeam, activeTeam, inactiveSignIn, activeSignIn, inactiveLogout, activeLogout };
+
+export const LOGO = { header };
