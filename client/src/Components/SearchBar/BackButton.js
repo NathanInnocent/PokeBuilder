@@ -8,16 +8,16 @@ export const BackButton = ({ displayValue, route }) => {
  //  If someone forgets to specify value, make the button visible
  if (displayValue === undefined) displayValue = "block";
 
- //  If someone forgets to specify route, make it go to homepage
- if (route === undefined) route = "/home";
+ //  If someone forgets to specify route, make it go to /pokedex
+ if (route === undefined) route = "/pokedex";
 
- const returnToHomepage = () => {
+ const returnToPage = () => {
   navigate(`${route}`);
  };
 
  return (
   <>
-   <Icon onClick={returnToHomepage} src={ICON.backArrow} style={{ top: "0px", borderRadius: "0", cursor: "pointer", width: "70px", height: "70px", display: `${displayValue}` }} />
+   <Icon onClick={returnToPage} src={ICON.backArrow} style={{ top: "0px", borderRadius: "0", cursor: "pointer", width: "60px", height: "60px", display: `${displayValue}` }} />
   </>
  );
 };

@@ -41,12 +41,17 @@ export const CurrentTeamProvider = ({ children }) => {
   }
  };
 
- const postPokemonTeam = async (setFetchResponse) => {
+ const postPokemonTeam = async (setFetchResponse, teamName) => {
   //init remove serverResponse
   setFetchResponse(null);
   const username = currentUser?.user || null;
   //Stop process if no username
   if (username === null) return setFetchResponse({ status: 400, message: "This feature is only available to logged in users." });
+  //Stop process if no teamName
+  if (teamName === "" || teamName === undefined) return setFetchResponse({ status: 400, message: "Please enter a team name." });
+  else if (teamName.length > 20) return setFetchResponse({ status: 400, message: "Team name must be less than 20 characters." });
+  else if (teamName.length < 3) return setFetchResponse({ status: 400, message: "Team name must be at least 3 characters." });
+
   console.log("username", username, "pokemonTeam", currentPokemonTeam);
   //  Search State to see if there's an empty object // True || false
   let index = currentPokemonTeam.some((currentTeam) => Object.keys(currentTeam).length === 0);
@@ -65,7 +70,7 @@ export const CurrentTeamProvider = ({ children }) => {
      "Content-Type": "application/json",
     },
     method: "POST",
-    body: JSON.stringify({ username, team: pokemonTeamObject }),
+    body: JSON.stringify({ username, team: pokemonTeamObject, teamName }),
    })
     .then((res) => res.json())
     .then((data) => {
