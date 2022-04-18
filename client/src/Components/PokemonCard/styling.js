@@ -21,6 +21,7 @@ export const Icon = styled.img`
  height: 30px;
  top: -10px;
  border-radius: 50%;
+ border: 2px solid black;
  z-index: 2;
 `;
 
