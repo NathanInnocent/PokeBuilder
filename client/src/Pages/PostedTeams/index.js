@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Form } from "../../Auth/Form/Components/FormStyles";
 import { Loading } from "../../Components/Loading";
 import { PokemonTeam } from "../../Components/PokemonTeam";
 
@@ -35,6 +34,7 @@ export const PostedTeamsPage = () => {
 
  //Fetch data from backend on mount
  useEffect(() => {
+  document.body.style.backgroundColor = "white";
   fetchPostedTeams();
  }, []);
 

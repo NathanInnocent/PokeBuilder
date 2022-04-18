@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Filters } from "../../Components/Filters";
-import { Loading } from "../../Components/Loading";
 import { PokemonCard } from "../../Components/PokemonCard";
 import { PokemonTeam } from "../../Components/PokemonTeam";
 import { PostTeamForm } from "../../Components/PokemonTeam/PostTeamForm";
@@ -16,7 +15,7 @@ export const PokedexPage = () => {
 
  useEffect(() => {
   window.scrollTo(0, 0);
-  document.body.style.backgroundColor = "hsl(0, 0%, 80%)";
+  document.body.style.backgroundColor = "white";
  }, []);
 
  return (
