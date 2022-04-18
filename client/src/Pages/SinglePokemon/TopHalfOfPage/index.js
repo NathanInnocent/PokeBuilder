@@ -13,6 +13,7 @@ export const TopHalfOfPage = () => {
   currentPokemon: { types },
  } = useContext(CurrentPokemonContext);
  const { currentPokemonTeam } = useContext(CurrentPokemonTeamContext);
+ const { currentPokemon } = useContext(CurrentPokemonContext);
 
  const { backgroundColor } = getColorPallate(types[0].type.name);
 
@@ -20,7 +21,7 @@ export const TopHalfOfPage = () => {
  useEffect(() => {
   window.scrollTo(0, 0);
   document.body.style.backgroundColor = backgroundColor;
- }, []);
+ }, [currentPokemon]);
 
  return (
   <>
