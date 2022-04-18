@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { Icon, ID, Image, Name, SmallPokemonCard } from "./styling";
 import { convertPokemonId, getColorPallate, getTypeIcon } from "./typeLogic";
 import { useNavigate } from "react-router-dom";
 
 export const PokemonCard = ({ info }) => {
  let navigate = useNavigate();
- //  const [pokemon, setPokemon] = useState(pokemonSampleData);
+
  const { sprites, id, types, name } = info;
  const image = sprites.other[`official-artwork`][`front_default`];
  const primaryType = types[0].type.name;
