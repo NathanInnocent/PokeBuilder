@@ -36,6 +36,7 @@ export const Button = styled.button`
  height: 44px;
  padding: 5px 5%;
  border: 1px solid #ccc;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
  -moz-border-radius: 27px;
  -webkit-border-radius: 27px;
  border-radius: 27px;
