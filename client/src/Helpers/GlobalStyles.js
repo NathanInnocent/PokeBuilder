@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@382;800&display=swap');
 
 //From https://www.joshwcomeau.com/css/custom-css-reset/
 /*
@@ -26,6 +27,7 @@ html, body {
   5. Improve text rendering
 */
 body {
+  font-family: 'Merriweather Sans', sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }

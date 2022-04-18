@@ -5,11 +5,10 @@ export const Form = styled.form`
  width: 650px;
  border-radius: 25px;
  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
- /* background: hsl(180, 17%, 93%, 5%); */
  padding: 2% 3%;
  color: #fff;
  font-weight: bold;
- margin: auto;
+ margin: 0 auto auto auto;
  transition: all 1s ease-in-out;
  z-index: 5;
 `;
@@ -19,6 +18,7 @@ export const Background = styled.div`
  background-repeat: no-repeat;
  background-size: cover;
  display: flex;
+ flex-direction: column;
 `;
 export const Section = styled.div`
  display: flex;
