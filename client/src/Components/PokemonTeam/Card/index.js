@@ -11,7 +11,7 @@ export const TeamCard = ({ pokemon }) => {
  return (
   <div>
    <SmallPokemonIcon pokemon={pokemon} />
-   <p style={{ textAlign: "center", textTransform: "capitalize" }}>{name}</p>
+   <p style={{ textAlign: "center", textTransform: "capitalize", fontSize: "1.3em", fontWeight: "bold" }}>{name}</p>
   </div>
  );
 };
