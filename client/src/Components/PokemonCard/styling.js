@@ -8,9 +8,11 @@ export const SmallPokemonCard = styled.div`
  width: 350px;
  border-radius: 25px;
  border: 1px solid black;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
  overflow: hidden;
  padding: 0 10px;
  margin: 20px;
+ cursor: pointer;
 `;
 
 export const Icon = styled.img`

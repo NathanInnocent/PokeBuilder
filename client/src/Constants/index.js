@@ -28,18 +28,18 @@ export const COLOR = {
  bug_name: "hsl(80, 100%, 28%)",
 
  // Electric type: | Yellow
- electric_card: "hsl(48deg, 100%, 86%)",
- electric_ID: "hsl(50, 100%, 49%)",
+ electric_card: "hsl(48deg, 70%, 86%)",
+ electric_ID: "hsl(50, 20%, 49%)",
  electric_name: "hsl(50, 100%, 39%)",
 
  // Fairy type: | Pink
- fairy_card: "hsl(340deg, 35%, 93%)",
+ fairy_card: "hsl(340deg, 35%, 83%)",
  fairy_ID: "hsl(308, 93%, 66%)",
  fairy_name: "hsl(308, 93%, 43%)",
 
  // Psychic type: | red
  psychic_card: "hsl(340deg, 100%, 86%)",
- psychic_ID: "hsl(354, 100%, 70%)",
+ psychic_ID: "hsl(354, 100%, 40%)",
  psychic_name: "hsl(350, 100%, 35%)",
 
  // Fighting type: |
@@ -48,13 +48,13 @@ export const COLOR = {
  fighting_name: "hsl(339deg, 75%, 43%)",
 
  // Rock type: |
- rock_card: "hsl(40deg, 48%, 89%)",
- rock_ID: "hsl(44deg, 38%, 60%)",
- rock_name: "hsl(44deg, 38%, 46%)",
+ rock_card: "hsl(40deg, 28%, 50%)",
+ rock_ID: "hsl(44deg, 38%, 25%)",
+ rock_name: "hsl(44deg, 98%, 16%)",
 
  // Ground type: |
- ground_card: "hsl(40deg, 28%, 39%)",
- ground_ID: "hsl(40, 58%, 50%)",
+ ground_card: "hsl(21, 61%, 36%)",
+ ground_ID: "hsl(21, 100%, 6%)",
  ground_name: "hsl(40, 58%, 70%)",
 
  // Flying type: |

@@ -1,48 +1,32 @@
-import { useState } from "react";
-
 import { Icon, ID, Image, Name, SmallPokemonCard } from "./styling";
-import { getPokemonTypeInformation } from "./typeLogic";
-import { pokemonSampleData } from "./Test";
+import { convertPokemonId, getColorPallate, getTypeIcon } from "./typeLogic";
+import { useNavigate } from "react-router-dom";
 
-export const PokemonCard = (/* { type, name, number } */) => {
- const [pokemon, setPokemon] = useState(pokemonSampleData);
+export const PokemonCard = ({ info }) => {
+ let navigate = useNavigate();
+
+ const { sprites, id, types, name } = info;
+ const image = sprites.other[`official-artwork`][`front_default`];
+ const primaryType = types[0].type.name;
+ const { backgroundColor, numberColor, nameColor } = getColorPallate(primaryType);
+ const displayedPokemonId = convertPokemonId(id);
 
  return (
-  <>
-   {pokemon.map((pokemonReceived, index) => {
-    const { type, pokemonName, number } = pokemonReceived;
-    const { background, numberColor, nameColor, icon, image } = getPokemonTypeInformation(type);
-    console.log(getPokemonTypeInformation(type));
-    console.log(background);
-    console.log(pokemonName);
-
-    return (
-     <SmallPokemonCard key={index} style={{ backgroundColor: `${background}` }}>
-      <ID style={{ color: `${numberColor}` }}>{number}</ID>
-      <Name style={{ color: `${nameColor}` }}>{pokemonName}</Name>
-      <Icon src={icon} alt={`${type} icon`} />
-      <Image src={image} alt={`${pokemonName}`} />
-     </SmallPokemonCard>
-    );
-   })}
-  </>
+  <SmallPokemonCard
+   onClick={() => {
+    navigate(`/pokemon/${name}`);
+   }}
+   style={{ backgroundColor: `${backgroundColor}` }}
+  >
+   <ID style={{ color: `${numberColor}` }}>{displayedPokemonId}</ID>
+   <Name style={{ color: `${nameColor}`, textTransform: "capitalize" }}>{name}</Name>
+   <div style={{ display: "flex", gap: "10px" }}>
+    {types.map((data, index) => {
+     const { icon } = getTypeIcon(data.type.name);
+     return <Icon src={icon} alt={`${primaryType} icon`} key={index} />;
+    })}
+   </div>
+   <Image src={image} alt={`${name}`} />
+  </SmallPokemonCard>
  );
 };
-
-{
- /* <SmallPokemonCard style={{ backgroundColor: PokemonType.background }}>
-<ID style={{ flex: "1", color: PokemonType.ID }}>{number}</ID>
-<Name style={{ flex: "1", color: PokemonType.name }}>{name}</Name>
-<Icon src={PokemonType.icon} alt={`${type}_icon`} />
-<Image src={name} alt={`${name} picture`} />
-</SmallPokemonCard> */
-}
-
-{
- /* <SmallPokemonCard background={background}>
-    <ID>{number}</ID>
-    <Name>{pokemonName}</Name>
-    <Icon src={icon} alt={`${type}_icon`} />
-    <Image src={name} alt={`${name}_picture`} />
-   </SmallPokemonCard> */
-}

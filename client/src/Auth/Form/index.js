@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Background } from "./Components/FormStyles";
+import { Background, Container } from "./Components/FormStyles";
 import { RegisterForm } from "./Register";
 import { SignInForm } from "./SignIn";
 
@@ -8,6 +8,7 @@ import underwaterLugiaBackground from "../../Assets/Images/Background/Underwater
 import underwaterCityBackground from "../../Assets/Images/Background/UnderWaterCity.jpg";
 import cityBackground from "../../Assets/Images/Background/City.jpg";
 import multiplePokemons from "../../Assets/Images/Background/MultiplePokemons.jpg";
+import { UTILS } from "../../Helpers/Icons";
 
 export const UserAuthenticationForm = () => {
  //Form order: Sign in(1) -> Sign Up(2) -> Confirm Sign up(3) -> || Error Login || Error Sign up )
@@ -16,8 +17,10 @@ export const UserAuthenticationForm = () => {
  const [formStep, setFormStep] = useState("signIn");
 
  return (
-  <Background style={{ backgroundImage: `url(${underwaterLugiaBackground})` }}>
-   {/* SignIn*/}
+  <Background style={{ backgroundImage: `url(${underwaterLugiaBackground})`, position: "relative" }}>
+   {/* PokeBuilderLogo */}
+   <img src={UTILS.logo} style={{ height: "25%", margin: "5% auto 2% auto" }} alt="logo" />
+
    {formStep === "signIn" && <SignInForm formStep={formStep} setFormStep={setFormStep} />}
    {formStep === "register" && <RegisterForm formStep={formStep} setFormStep={setFormStep} />}
   </Background>

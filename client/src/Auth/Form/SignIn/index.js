@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 // import { FormStepOneValidation } from "./Logic/ValidateStep1";
 import { Form, Button, Container, ErrorMessage, Input, InputContainer, FormTitle } from "../Components/FormStyles";
 import { hidePlaceHolderText, showPlaceHolderText } from "../Logic/PlaceholderText";
 import { updateUserInformation } from "../Logic/UpdateInput";
-import { validateInputs } from "../Logic/Validation";
+import { validateInputs, validateNoEmptyInput } from "../Logic/Validation";
+import { NavLink, useNavigate } from "react-router-dom";
+import { loginAccount } from "../Logic/Submit";
+import { CurrentUserContext } from "../../../Context/CurrentUserContext";
+import { LoadingSpinner } from "../../../Components/LoadingSpinner";
 
 export const SignInForm = ({ formStep, setFormStep }) => {
+ const { setCurrentUser } = useContext(CurrentUserContext);
+
+ let navigate = useNavigate();
+
  // State to store user Information
  const [loginUserInformation, setLoginUserInformation] = useState({
   username: "",
@@ -23,11 +31,27 @@ export const SignInForm = ({ formStep, setFormStep }) => {
  // Place holder states for this form
  const [placeHolderText, setPlaceHolderText] = useState({ username: "Username", password: "Password" });
 
+ //state to disable the button
+ const [buttonDisabled, setButtonDisabled] = useState(false);
+
  return (
   <Form
    onSubmit={(ev) => {
     ev.preventDefault();
-    console.log("Signing in");
+    setserverResponseMessage("");
+    setButtonDisabled(true);
+    loginAccount(loginUserInformation, errorMessage).then((response) => {
+     const { status, message } = response;
+     if (status >= 200 && status <= 299) {
+      const { username } = loginUserInformation;
+      setButtonDisabled(false);
+      setCurrentUser({ user: username });
+      navigate("/home");
+     } else {
+      setButtonDisabled(false);
+      setserverResponseMessage(message);
+     }
+    });
    }}
   >
    <Container>
@@ -39,12 +63,17 @@ export const SignInForm = ({ formStep, setFormStep }) => {
       placeholder={placeHolderText.username}
       name="username"
       type="text"
-      onBlur={(object) => {
-       validateInputs(object, setErrorMessage, errorMessage, formStep);
-       showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
+      onFocus={(object) => {
+       hidePlaceHolderText(object, setPlaceHolderText, placeHolderText);
       }}
-      onFocus={(object) => hidePlaceHolderText(object, setPlaceHolderText, placeHolderText)}
-      onChange={(object) => updateUserInformation(object, setLoginUserInformation, loginUserInformation)}
+      onBlur={(object) => {
+       showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
+       validateNoEmptyInput(object, setErrorMessage, errorMessage);
+      }}
+      onInput={(object) => {
+       updateUserInformation(object, setLoginUserInformation, loginUserInformation);
+       validateInputs(object, setErrorMessage, errorMessage, setLoginUserInformation);
+      }}
       autoComplete="none"
      />
      {errorMessage.username && <ErrorMessage>{errorMessage.username}</ErrorMessage>}
@@ -56,16 +85,23 @@ export const SignInForm = ({ formStep, setFormStep }) => {
       placeholder={placeHolderText.password}
       name="password"
       type="password"
-      onBlur={(object) => {
-       validateInputs(object, setErrorMessage, errorMessage, formStep);
-       showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
+      onFocus={(object) => {
+       hidePlaceHolderText(object, setPlaceHolderText, placeHolderText);
       }}
-      onFocus={(object) => hidePlaceHolderText(object, setPlaceHolderText, placeHolderText)}
-      onChange={(object) => updateUserInformation(object, setLoginUserInformation, loginUserInformation)}
+      onBlur={(object) => {
+       showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
+       validateNoEmptyInput(object, setErrorMessage, errorMessage);
+      }}
+      onInput={(object) => {
+       updateUserInformation(object, setLoginUserInformation, loginUserInformation);
+       validateInputs(object, setErrorMessage, errorMessage, setLoginUserInformation);
+      }}
       autoComplete="none"
      />
      {errorMessage.password && <ErrorMessage>{errorMessage.password}</ErrorMessage>}
     </InputContainer>
+    {/* Only show div if there's a server error message */}
+    {serverResponseMessage && <ErrorMessage>{serverResponseMessage}</ErrorMessage>}
     {/* Button to login */}
     <div style={{ display: "flex", justifyContent: "space-between" }}>
      <Button
@@ -75,8 +111,13 @@ export const SignInForm = ({ formStep, setFormStep }) => {
      >
       Register
      </Button>
-     <Button>Login</Button>
+     <Button type="submit" disabled={buttonDisabled}>
+      {buttonDisabled === true ? <LoadingSpinner /> : "Login"}
+     </Button>
     </div>
+    <NavLink to="/home" style={{ color: "white" }}>
+     Continue without an account
+    </NavLink>
    </Container>
   </Form>
  );

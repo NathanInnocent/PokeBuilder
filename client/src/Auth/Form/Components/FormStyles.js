@@ -5,11 +5,10 @@ export const Form = styled.form`
  width: 650px;
  border-radius: 25px;
  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
- /* background: hsl(180, 17%, 93%, 5%); */
  padding: 2% 3%;
  color: #fff;
  font-weight: bold;
- margin: auto;
+ margin: 0 auto auto auto;
  transition: all 1s ease-in-out;
  z-index: 5;
 `;
@@ -19,6 +18,7 @@ export const Background = styled.div`
  background-repeat: no-repeat;
  background-size: cover;
  display: flex;
+ flex-direction: column;
 `;
 export const Section = styled.div`
  display: flex;
@@ -48,6 +48,15 @@ export const Button = styled.button`
  font-size: 1em;
  margin: 10px;
  cursor: pointer;
+ &:hover {
+  box-shadow: 0 0 10px 0 #00d7c3 inset, 0 0 20px 2px #00d7c3;
+  border: 3px solid #00d7c3;
+ }
+ :focus {
+  outline: none;
+  box-shadow: 0 0 10px 0 #00d7c3 inset, 0 0 20px 2px #00d7c3;
+  border: 3px solid #00d7c3;
+ }
 `;
 
 export const Container = styled.div`
@@ -95,6 +104,7 @@ export const ErrorMessage = styled.div`
  color: white;
  border-radius: 25px;
  font-size: 1em;
+ margin-top: 5px;
  margin-bottom: 5px;
  margin-left: 5px;
 `;
@@ -116,6 +126,7 @@ export const Input = styled.input`
  height: 44px;
  padding: 5px 5%;
  border: 1px solid #ccc;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
  -moz-border-radius: 27px;
  -webkit-border-radius: 27px;
  border-radius: 27px;
@@ -126,7 +137,6 @@ export const Input = styled.input`
  font-family: "HelveticaNeue", "Arial", sans-serif;
  font-size: 105%;
  letter-spacing: 0.8px;
- margin-bottom: 10px;
 
  &:focus {
   outline: 3px solid rgba(81, 203, 238, 1);
