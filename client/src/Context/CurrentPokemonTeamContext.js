@@ -41,7 +41,7 @@ export const CurrentTeamProvider = ({ children }) => {
   }
  };
 
- const postPokemonTeam = async (setFetchResponse, teamName) => {
+ const postPokemonTeam = async (setFetchResponse, teamName, setButtonDisabled) => {
   //init remove serverResponse
   setFetchResponse(null);
   const username = currentUser?.user || null;
@@ -52,7 +52,6 @@ export const CurrentTeamProvider = ({ children }) => {
   else if (teamName.length > 20) return setFetchResponse({ status: 400, message: "Team name must be less than 20 characters." });
   else if (teamName.length < 3) return setFetchResponse({ status: 400, message: "Team name must be at least 3 characters." });
 
-  console.log("username", username, "pokemonTeam", currentPokemonTeam);
   //  Search State to see if there's an empty object // True || false
   let index = currentPokemonTeam.some((currentTeam) => Object.keys(currentTeam).length === 0);
 
@@ -65,6 +64,7 @@ export const CurrentTeamProvider = ({ children }) => {
     const { name, sprites } = pokemon;
     return { name, sprites };
    });
+   setButtonDisabled(true);
    await fetch(`http://localhost:4000/api/pokemon-team`, {
     headers: {
      "Content-Type": "application/json",
@@ -79,14 +79,14 @@ export const CurrentTeamProvider = ({ children }) => {
      if (status >= 200 && status <= 299) {
       //  Remove current pokemon team
       setCurrentPokemonTeam([{}, {}, {}, {}, {}, {}]);
-      console.log("success", data);
+      setButtonDisabled(false);
       return setFetchResponse({ status: 200, message: message });
      } else {
       throw data;
      }
     })
     .catch((error) => {
-     console.log("error", error);
+     setButtonDisabled(false);
      return setFetchResponse(error.message);
     });
   }

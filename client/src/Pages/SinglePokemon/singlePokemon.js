@@ -2,7 +2,6 @@ import { useContext, useEffect } from "react";
 import { PokemonDataContext } from "../../Context/PokemonDataContext";
 import { useParams } from "react-router-dom";
 import { Page, Section, Content } from "./styling";
-import { SectionOne } from "./TopHalfOfPage/ImageUI";
 import { Abilities } from "./abilities";
 import { Type } from "./type";
 import { Physique } from "./physique";
@@ -10,12 +9,16 @@ import { Evolutions } from "./evolutions";
 import { Stats } from "./stats";
 import { CurrentPokemonContext } from "./context";
 import { TopHalfOfPage } from "./TopHalfOfPage";
+import { TypeRelationStats } from "./typeRelations";
 
 export const SinglePokemon = () => {
  let { searchedPokemon } = useParams();
  const { allPokemonData } = useContext(PokemonDataContext);
 
- const { statsDetail, setStatsDetail, speciesDetails, setSpeciesDetail, setEvolutionChainDetail, currentPokemon, setCurrentPokemon, setAbilityEffect } = useContext(CurrentPokemonContext);
+ const { statsDetail, setStatsDetail, speciesDetails, setSpeciesDetail, setEvolutionChainDetail, currentPokemon, setCurrentPokemon, setAbilityEffect, setTypeRelations, typeRelations } =
+  useContext(CurrentPokemonContext);
+
+ //======================== Fetches ========================//
  //================ Gain Pokemon Species ================//
  //  Get Species, description, catch rate, gender ratio
  const fetchPokemonData = async (name) => {
@@ -39,6 +42,7 @@ export const SinglePokemon = () => {
  };
 
  //================ Gain Pokemon Evolution chain ================//
+ // Get all posible evolutions
  const fetchEvolutionChain = async (url) => {
   // Url is given by the fetchSpeciesData
   const response = await fetch(url);
@@ -75,12 +79,21 @@ export const SinglePokemon = () => {
   return;
  };
 
- // Change pokemon whenever search query changes
+ const fetchTypeRelations = async (type) => {
+  const url = `https://pokeapi.co/api/v2/type/${type}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  setTypeRelations((prevState) => [...prevState, data]);
+  return;
+ };
+
+ //================ USE EFFECTS ================//
+ // Change pokemon whenever search pokemon changes
  useEffect(() => {
   setCurrentPokemon(allPokemonData.filter((pokemonDataInsideContext) => pokemonDataInsideContext.name === searchedPokemon)[0]);
  }, [searchedPokemon]);
 
- // FETCH POKEMON STATS || ABILITIES each change
+ // FETCH POKEMON STATS || whenever we have a new current pokemon
  useEffect(() => {
   if (currentPokemon != null) {
    fetchPokemonData(currentPokemon.name);
@@ -116,7 +129,14 @@ export const SinglePokemon = () => {
    setAbilityEffect([]);
    currentPokemon.abilities.forEach((element) => {
     //  push to abilities array => state
-    fetchAbility(element).then((res) => console.log(res));
+    fetchAbility(element);
+   });
+   //Resets type relations
+   setTypeRelations([]);
+
+   currentPokemon.types.forEach((element) => {
+    //  push to abilities array => state
+    fetchTypeRelations(element.type.name);
    });
   }
  }, [currentPokemon]);
@@ -144,6 +164,9 @@ export const SinglePokemon = () => {
 
         {/* Component showing abilities */}
         <Abilities />
+
+        {/* Type relation */}
+        <TypeRelationStats />
 
         {/* If there is data */}
         <Stats />

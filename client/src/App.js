@@ -11,7 +11,8 @@ import { SinglePokemonPage } from "./Pages/SinglePokemon";
 import { NavigationBar } from "./Components/NavigationBar";
 import { PostedTeamsPage } from "./Pages/PostedTeams";
 import { ErrorPage } from "./Pages/Error";
-import { Loading } from "./Components/Loading";
+import { Loading } from "./Components/LoadingPage";
+import { HomePage } from "./Pages/HomePage";
 
 function App() {
  const { shownPokemons, getAllPokemon, allPokemonData } = useContext(PokemonDataContext);
@@ -30,7 +31,7 @@ function App() {
       <NavigationBar />
       <Routes>
        <Route path="/" element={<UserAuthenticationForm />} />
-       <Route path="/home" element={<>homepage</>} />
+       <Route path="/home" element={<HomePage />} />
        <Route path="/pokedex" element={<PokedexPage />} />
        <Route path="/pokemon/filter" element={<SearchFilterPage />} />
        <Route path="/pokemon/filter/:criteria" element={<FilteredPokemonPage />} />

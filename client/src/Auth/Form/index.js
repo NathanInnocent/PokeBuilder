@@ -8,7 +8,7 @@ import underwaterLugiaBackground from "../../Assets/Images/Background/Underwater
 import underwaterCityBackground from "../../Assets/Images/Background/UnderWaterCity.jpg";
 import cityBackground from "../../Assets/Images/Background/City.jpg";
 import multiplePokemons from "../../Assets/Images/Background/MultiplePokemons.jpg";
-import { TITLE } from "../../Helpers/Icons";
+import { UTILS } from "../../Helpers/Icons";
 
 export const UserAuthenticationForm = () => {
  //Form order: Sign in(1) -> Sign Up(2) -> Confirm Sign up(3) -> || Error Login || Error Sign up )
@@ -19,7 +19,7 @@ export const UserAuthenticationForm = () => {
  return (
   <Background style={{ backgroundImage: `url(${underwaterLugiaBackground})`, position: "relative" }}>
    {/* PokeBuilderLogo */}
-   <img src={TITLE.app} style={{ height: "25%", margin: "auto auto 10px auto" }} alt="logo" />
+   <img src={UTILS.logo} style={{ height: "25%", margin: "5% auto 2% auto" }} alt="logo" />
 
    {formStep === "signIn" && <SignInForm formStep={formStep} setFormStep={setFormStep} />}
    {formStep === "register" && <RegisterForm formStep={formStep} setFormStep={setFormStep} />}

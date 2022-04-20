@@ -29,19 +29,14 @@ export const NavigationBar = () => {
 
      {/* Team button */}
      <TeamNav to="/teams" active={locationPath === "/teams" ? "true" : null}>
-      Team
+      Community Teams
      </TeamNav>
 
      {/* Sign in */}
      {currentUser === null && <SignInNav to="/">Sign In</SignInNav>}
 
      {/* Log Out */}
-     {currentUser && (
-      <NavigationDivContainer>
-       <SignOutNav onClick={() => setCurrentUser(null)} />
-       Sign out
-      </NavigationDivContainer>
-     )}
+     {currentUser && <SignOutNav onClick={() => setCurrentUser(null)}> Sign out</SignOutNav>}
     </NavigationContainer>
    )}
   </>

@@ -15,7 +15,6 @@ export const PokedexPage = () => {
 
  useEffect(() => {
   window.scrollTo(0, 0);
-  document.body.style.backgroundColor = "white";
  }, []);
 
  return (

@@ -19,7 +19,8 @@ const GlobalStyle = createGlobalStyle`
   3. Allow percentage-based heights in the application
 */
 html, body {
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 /*
   Typographic tweaks!

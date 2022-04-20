@@ -3,10 +3,11 @@ import { useContext, useState } from "react";
 import { Form, Button, Container, ErrorMessage, Input, InputContainer, FormTitle } from "../Components/FormStyles";
 import { hidePlaceHolderText, showPlaceHolderText } from "../Logic/PlaceholderText";
 import { updateUserInformation } from "../Logic/UpdateInput";
-import { validateInputs } from "../Logic/Validation";
-import { useNavigate } from "react-router-dom";
+import { validateInputs, validateNoEmptyInput } from "../Logic/Validation";
+import { NavLink, useNavigate } from "react-router-dom";
 import { loginAccount } from "../Logic/Submit";
 import { CurrentUserContext } from "../../../Context/CurrentUserContext";
+import { LoadingSpinner } from "../../../Components/LoadingSpinner";
 
 export const SignInForm = ({ formStep, setFormStep }) => {
  const { setCurrentUser } = useContext(CurrentUserContext);
@@ -30,28 +31,24 @@ export const SignInForm = ({ formStep, setFormStep }) => {
  // Place holder states for this form
  const [placeHolderText, setPlaceHolderText] = useState({ username: "Username", password: "Password" });
 
- const handleValidation = (value) => {
-  validateInputs(value, setErrorMessage, errorMessage, loginUserInformation);
-  showPlaceHolderText(value, setPlaceHolderText, placeHolderText, formStep);
- };
-
- const handleInputUpdate = (value) => {
-  updateUserInformation(value, setLoginUserInformation, loginUserInformation);
- };
+ //state to disable the button
+ const [buttonDisabled, setButtonDisabled] = useState(false);
 
  return (
   <Form
    onSubmit={(ev) => {
     ev.preventDefault();
     setserverResponseMessage("");
+    setButtonDisabled(true);
     loginAccount(loginUserInformation, errorMessage).then((response) => {
      const { status, message } = response;
      if (status >= 200 && status <= 299) {
       const { username } = loginUserInformation;
-      console.log(response);
+      setButtonDisabled(false);
       setCurrentUser({ user: username });
       navigate("/home");
      } else {
+      setButtonDisabled(false);
       setserverResponseMessage(message);
      }
     });
@@ -66,10 +63,16 @@ export const SignInForm = ({ formStep, setFormStep }) => {
       placeholder={placeHolderText.username}
       name="username"
       type="text"
-      onFocus={(object) => hidePlaceHolderText(object, setPlaceHolderText, placeHolderText)}
+      onFocus={(object) => {
+       hidePlaceHolderText(object, setPlaceHolderText, placeHolderText);
+      }}
+      onBlur={(object) => {
+       showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
+       validateNoEmptyInput(object, setErrorMessage, errorMessage);
+      }}
       onInput={(object) => {
-       handleValidation(object);
-       handleInputUpdate(object);
+       updateUserInformation(object, setLoginUserInformation, loginUserInformation);
+       validateInputs(object, setErrorMessage, errorMessage, setLoginUserInformation);
       }}
       autoComplete="none"
      />
@@ -82,10 +85,16 @@ export const SignInForm = ({ formStep, setFormStep }) => {
       placeholder={placeHolderText.password}
       name="password"
       type="password"
-      onFocus={(object) => hidePlaceHolderText(object, setPlaceHolderText, placeHolderText)}
+      onFocus={(object) => {
+       hidePlaceHolderText(object, setPlaceHolderText, placeHolderText);
+      }}
+      onBlur={(object) => {
+       showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
+       validateNoEmptyInput(object, setErrorMessage, errorMessage);
+      }}
       onInput={(object) => {
-       handleValidation(object);
-       handleInputUpdate(object);
+       updateUserInformation(object, setLoginUserInformation, loginUserInformation);
+       validateInputs(object, setErrorMessage, errorMessage, setLoginUserInformation);
       }}
       autoComplete="none"
      />
@@ -102,8 +111,13 @@ export const SignInForm = ({ formStep, setFormStep }) => {
      >
       Register
      </Button>
-     <Button type="submit">Login</Button>
+     <Button type="submit" disabled={buttonDisabled}>
+      {buttonDisabled === true ? <LoadingSpinner /> : "Login"}
+     </Button>
     </div>
+    <NavLink to="/home" style={{ color: "white" }}>
+     Continue without an account
+    </NavLink>
    </Container>
   </Form>
  );

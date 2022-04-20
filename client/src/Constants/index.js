@@ -48,8 +48,8 @@ export const COLOR = {
  fighting_name: "hsl(339deg, 75%, 43%)",
 
  // Rock type: |
- rock_card: "hsl(40deg, 28%, 59%)",
- rock_ID: "hsl(44deg, 38%, 30%)",
+ rock_card: "hsl(40deg, 28%, 50%)",
+ rock_ID: "hsl(44deg, 38%, 25%)",
  rock_name: "hsl(44deg, 98%, 16%)",
 
  // Ground type: |

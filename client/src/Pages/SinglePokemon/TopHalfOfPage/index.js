@@ -19,9 +19,13 @@ export const TopHalfOfPage = () => {
 
  //Change body color to match pokemon type
  useEffect(() => {
-  window.scrollTo(0, 0);
   document.body.style.backgroundColor = backgroundColor;
  }, [currentPokemon]);
+
+ //Snap to top of page
+ useEffect(() => {
+  window.scrollTo(0, 0);
+ }, []);
 
  return (
   <>

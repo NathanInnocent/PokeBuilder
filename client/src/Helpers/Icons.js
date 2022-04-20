@@ -60,8 +60,11 @@ import Ratatta from "../Assets/Images/Test/Ratatta.png";
 import togepi from "../Assets/Gifs/Togepi_Dancing.gif";
 import snorlax from "../Assets/Gifs/Snorlax_Sleeping.gif";
 
-//Logo
-import app from "../Assets/Images/Title/Title.png";
+//utils
+import logo from "../Assets/Images/Utils/Title.png";
+import welcome from "../Assets/Images/Utils/Welcome.png";
+import welcomeBackground from "../Assets/Images/Utils/HomePage.png";
+import loadingspin from "../Assets/Images/Icons/Loading.png";
 
 export const GIFS = { togepi, snorlax };
 
@@ -97,7 +100,7 @@ export const ICON = {
 export const GENERATION = { one, two, three, four, five, six, seven, eight };
 
 //Image
-export { pokeballOutline, pokemonSilouhette };
+export { pokeballOutline, pokemonSilouhette, loadingspin };
 
 //Test pokemon
 export const POKEMON = { Charmander, Grookey, Ratatta };
@@ -105,4 +108,4 @@ export const POKEMON = { Charmander, Grookey, Ratatta };
 //Navbar icons
 export const NAVBAR = { inactiveHome, activeHome, inactivePokedex, activePokedex, inactiveTeam, activeTeam, inactiveSignIn, activeSignIn, inactiveLogout, activeLogout };
 
-export const TITLE = { app };
+export const UTILS = { logo, welcome, welcomeBackground };

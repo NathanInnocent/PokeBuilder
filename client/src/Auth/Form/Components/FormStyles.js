@@ -104,6 +104,7 @@ export const ErrorMessage = styled.div`
  color: white;
  border-radius: 25px;
  font-size: 1em;
+ margin-top: 5px;
  margin-bottom: 5px;
  margin-left: 5px;
 `;

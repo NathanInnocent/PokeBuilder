@@ -8,7 +8,7 @@ export const HomeNav = styled(NavLink)`
  align-items: center;
  display: relative;
  text-decoration: none;
- color: ${(props) => (props.active ? "red" : "black")};
+ color: ${(props) => (props.active ? "hsl(217, 53%, 48%)" : "black")};
  font-size: 1.5em;
  transition: all 0.2s ease-in-out;
  pointer-events: all;
@@ -33,7 +33,7 @@ export const HomeNav = styled(NavLink)`
  &:focus {
   outline: none;
   background: #8a8a8a;
-  color: red;
+  color: hsl(217, 53%, 48%);
 
   ::before {
    background-image: url("${NAVBAR.activeHome}");
@@ -47,7 +47,7 @@ export const SignInNav = styled(NavLink)`
  align-items: center;
  display: relative;
  text-decoration: none;
- color: ${(props) => (props.active ? "red" : "black")};
+ color: ${(props) => (props.active ? "hsl(217, 53%, 48%)" : "black")};
  font-size: 1.5em;
  transition: all 0.2s ease-in-out;
  pointer-events: all;
@@ -71,7 +71,7 @@ export const SignInNav = styled(NavLink)`
  &:focus {
   outline: none;
   background: #8a8a8a;
-  color: red;
+  color: hsl(217, 53%, 48%);
 
   ::before {
    background-image: url("${NAVBAR.activeSignIn}");
@@ -123,7 +123,7 @@ export const PokedexNav = styled(NavLink)`
  align-items: center;
  display: relative;
  text-decoration: none;
- color: ${(props) => (props.active ? "red" : "black")};
+ color: ${(props) => (props.active ? "hsl(46, 90%, 65%)" : "black")};
  font-size: 1.5em;
  transition: all 0.2s ease-in-out;
  pointer-events: all;
@@ -147,7 +147,7 @@ export const PokedexNav = styled(NavLink)`
  &:focus {
   outline: none;
   background: #8a8a8a;
-  color: red;
+  color: hsl(46, 90%, 65%);
 
   ::before {
    background-image: url("${NAVBAR.activePokedex}");
@@ -156,16 +156,40 @@ export const PokedexNav = styled(NavLink)`
 `;
 
 export const SignOutNav = styled.div`
- background-image: url("${NAVBAR.inactiveLogout}");
- background-size: 100%;
- background-repeat: no-repeat;
- object-fit: contain;
- width: 80px;
- height: 80px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ display: relative;
+ text-decoration: none;
+ color: ${(props) => (props.active ? "red" : "black")};
+ font-size: 1.5em;
  transition: all 0.2s ease-in-out;
+ cursor: pointer;
 
- &:hover {
-  background-image: url("${NAVBAR.activeLogout}");
+ ::before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  top: 0px;
+  left: -5px;
+  width: 80px;
+  height: 80px;
+  background-image: url(${(props) => (props.active ? NAVBAR.activeLogout : NAVBAR.inactiveLogout)});
+  background-size: 100%;
+  background-repeat: no-repeat;
+  object-fit: contain;
+  transition: all 0.2s ease-in-out;
+ }
+
+ &:hover,
+ &:focus {
+  outline: none;
+  background: #8a8a8a;
+  color: red;
+
+  ::before {
+   background-image: url("${NAVBAR.activeLogout}");
+  }
  }
 `;
 
@@ -183,20 +207,5 @@ export const NavigationContainer = styled.div`
  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
  background: gray;
  margin: 30px 30px;
-`;
-
-export const NavigationDivContainer = styled.div`
- display: flex;
- flex-direction: row;
- justify-content: center;
- align-items: center;
- color: black;
- font-size: 1.5em;
  transition: all 0.2s ease-in-out;
- cursor: pointer;
-
- &:hover {
-  background: #8a8a8a;
-  color: red;
- }
 `;

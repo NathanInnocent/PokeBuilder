@@ -45,7 +45,6 @@ const RegisterAccount = async (req, res) => {
 
  //Object received has an empty field
  if (Object.values(receivedData).some((value) => value === "") === true) {
-  console.log("There is no data");
   res.status(400).json({
    status: 400,
    message: "Some inputs are empty, please fill them up.",
@@ -93,7 +92,6 @@ const loginAccount = async (req, res) => {
 
  //Object received has an empty field
  if (Object.values(receivedData).some((value) => value === "") === true) {
-  console.log("There is no data");
   res.status(400).json({
    status: 400,
    message: "Some inputs are empty, please fill them up.",
@@ -120,7 +118,6 @@ const loginAccount = async (req, res) => {
     const { username, password } = receivedData;
     //Password submitted not the one stored in database
     if (usersInsideDatabase[0].password !== password) {
-     console.log(usersInsideDatabase.password, "vs", password);
      res.status(400).json({
       status: 400,
       message: "Wrong Username/Password.",

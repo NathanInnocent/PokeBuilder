@@ -12,7 +12,6 @@ const batchImport = async () => {
  await client.connect();
  const db = client.db("PokeBuilder");
  const result = await db.collection("Pokemons").insertMany(pokemons);
- console.log(result);
  client.close();
 };
 

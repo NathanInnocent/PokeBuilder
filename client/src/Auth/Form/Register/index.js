@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LoadingSpinner } from "../../../Components/LoadingSpinner";
 import { CurrentUserContext } from "../../../Context/CurrentUserContext";
 import { Form, Button, Container, ErrorMessage, Input, InputContainer, FormTitle } from "../Components/FormStyles";
 import { hidePlaceHolderText, showPlaceHolderText } from "../Logic/PlaceholderText";
 import { registerAccount } from "../Logic/Submit";
 import { updateUserInformation } from "../Logic/UpdateInput";
-import { validateInputs } from "../Logic/Validation";
+import { validateInputs, validateNoEmptyInput } from "../Logic/Validation";
 
 export const RegisterForm = ({ formStep, setFormStep }) => {
  const { setCurrentUser } = useContext(CurrentUserContext);
@@ -26,34 +27,30 @@ export const RegisterForm = ({ formStep, setFormStep }) => {
   confirmPassword: "",
  });
 
- console.log({ registerUserInformation, errorMessage });
  const [serverResponseMessage, setserverResponseMessage] = useState("");
 
  // Place holder states
  const [placeHolderText, setPlaceHolderText] = useState({ username: "Pick a username", password: "Pick a password", confirmPassword: "Confirm password" });
 
- const handleValidation = (value) => {
-  validateInputs(value, setErrorMessage, errorMessage, registerUserInformation);
-  showPlaceHolderText(value, setPlaceHolderText, placeHolderText, formStep);
- };
-
- const handleInputUpdate = (value) => {
-  updateUserInformation(value, setRegisterUserInformation, registerUserInformation);
- };
+ //state to disable the button
+ const [buttonDisabled, setButtonDisabled] = useState(false);
 
  return (
   <Form
    onSubmit={(ev) => {
     ev.preventDefault();
+    setButtonDisabled(true);
     setserverResponseMessage("");
     registerAccount(registerUserInformation, errorMessage).then((response) => {
      const { status, message } = response;
      if (status >= 200 && status <= 299) {
       const { username } = registerUserInformation;
       setCurrentUser({ user: username });
+      setButtonDisabled(false);
       setserverResponseMessage("");
       navigate("/home");
      } else {
+      setButtonDisabled(false);
       setserverResponseMessage(message);
      }
     });
@@ -68,10 +65,24 @@ export const RegisterForm = ({ formStep, setFormStep }) => {
       placeholder={placeHolderText.username}
       name="username"
       type="text"
-      onFocus={(object) => hidePlaceHolderText(object, setPlaceHolderText, placeHolderText)}
+      //When user clicks input
+      onFocus={(object) => {
+       //Hide placeholder text
+       hidePlaceHolderText(object, setPlaceHolderText, placeHolderText);
+      }}
+      //When user clicks elsewhere
+      onBlur={(object) => {
+       //Show placeholder text
+       showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
+       //Check if input is empty
+       validateNoEmptyInput(object, setErrorMessage, errorMessage);
+      }}
+      //When user types
       onInput={(object) => {
-       handleValidation(object);
-       handleInputUpdate(object);
+       //update state
+       updateUserInformation(object, setRegisterUserInformation, registerUserInformation);
+       //Validate input
+       validateInputs(object, setErrorMessage, errorMessage, registerUserInformation);
       }}
       autoComplete="none"
      />
@@ -85,11 +96,16 @@ export const RegisterForm = ({ formStep, setFormStep }) => {
       placeholder={placeHolderText.password}
       name="password"
       type="password"
-      onFocus={(object) => hidePlaceHolderText(object, setPlaceHolderText, placeHolderText)}
-      //===== Update user information
+      onFocus={(object) => {
+       hidePlaceHolderText(object, setPlaceHolderText, placeHolderText);
+      }}
+      onBlur={(object) => {
+       showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
+       validateNoEmptyInput(object, setErrorMessage, errorMessage);
+      }}
       onInput={(object) => {
-       handleValidation(object);
-       handleInputUpdate(object);
+       updateUserInformation(object, setRegisterUserInformation, registerUserInformation);
+       validateInputs(object, setErrorMessage, errorMessage, registerUserInformation);
       }}
       autoComplete="none"
      />
@@ -103,11 +119,16 @@ export const RegisterForm = ({ formStep, setFormStep }) => {
       placeholder={placeHolderText.confirmPassword}
       name="confirmPassword"
       type="password"
-      onFocus={(object) => hidePlaceHolderText(object, setPlaceHolderText, placeHolderText)}
-      //===== Update user information
+      onFocus={(object) => {
+       hidePlaceHolderText(object, setPlaceHolderText, placeHolderText);
+      }}
+      onBlur={(object) => {
+       showPlaceHolderText(object, setPlaceHolderText, placeHolderText, formStep);
+       validateNoEmptyInput(object, setErrorMessage, errorMessage);
+      }}
       onInput={(object) => {
-       handleValidation(object);
-       handleInputUpdate(object);
+       updateUserInformation(object, setRegisterUserInformation, registerUserInformation);
+       validateInputs(object, setErrorMessage, errorMessage, registerUserInformation);
       }}
       autoComplete="none"
      />
@@ -118,7 +139,9 @@ export const RegisterForm = ({ formStep, setFormStep }) => {
     <div style={{ display: "flex", justifyContent: "space-between" }}>
      <Button onClick={() => setFormStep("signIn")}>Back</Button>
      {/* Go to homepage on click */}
-     <Button type="submit">Confirm</Button>
+     <Button type="submit" disabled={buttonDisabled}>
+      {buttonDisabled === true ? <LoadingSpinner /> : "Register"}
+     </Button>
     </div>
    </Container>
   </Form>

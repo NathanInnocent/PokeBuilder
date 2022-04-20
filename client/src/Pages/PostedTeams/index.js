@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Loading } from "../../Components/Loading";
+import { Loading } from "../../Components/LoadingPage";
 import { PokemonTeam } from "../../Components/PokemonTeam";
 
 export const PostedTeamsPage = () => {
  const [fetchedPostedTeams, setFetchedPostedTeams] = useState(null);
- console.log(fetchedPostedTeams);
 
  const fetchPostedTeams = async () => {
   await fetch(`http://localhost:4000/api/pokemon-team`, {
@@ -18,7 +17,6 @@ export const PostedTeamsPage = () => {
    .then((data) => {
     if (data.status >= 200 && data.status <= 299) {
      //{ status: 200, message: "Account created successfully!" }
-     console.log(data);
      setFetchedPostedTeams(data.data);
      return data;
     } else {
@@ -27,7 +25,6 @@ export const PostedTeamsPage = () => {
    })
    .catch((error) => {
     //A user already has that username, please choose another one.
-    console.log(error);
     return error;
    });
  };

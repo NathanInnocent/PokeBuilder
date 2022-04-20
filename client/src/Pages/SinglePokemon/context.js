@@ -14,7 +14,6 @@ export const CurrentPokemonProvider = ({ children }) => {
 
  //Contains information about current Pokemon
  const [currentPokemon, setCurrentPokemon] = useState(null);
- console.log(currentPokemon);
 
  //Contains information about ability effetcs
  const [abilityEffect, setAbilityEffect] = useState(null);
@@ -35,6 +34,8 @@ export const CurrentPokemonProvider = ({ children }) => {
     setCurrentPokemon,
     setAbilityEffect,
     abilityEffect,
+    typeRelations,
+    setTypeRelations,
    }}
   >
    {children}
