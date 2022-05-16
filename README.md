@@ -8,3 +8,6 @@ With build in user Authentication, create a user and post ur team!
 # Pokemon Page
 View the base stats, strength & weaknesses of each Pokemon!
 <img width="743" alt="page1" src="https://user-images.githubusercontent.com/89917308/168649313-86a0d9d1-1a9f-4a28-b901-3a126852d3d9.PNG">
+
+# Add Pokemon to team
+![Demonstration](https://user-images.githubusercontent.com/89917308/168650295-37ab1f1a-b250-44bd-a89e-a4d301142d68.gif)
