@@ -7,7 +7,6 @@ export const SmallPokemonIcon = ({ pokemon }) => {
  const image = sprites.other[`official-artwork`][`front_default`];
 
  return (
-  <>
    <ImageContainerDiv
     onClick={() => {
      navigate(`/pokemon/${name}`);
@@ -16,6 +15,5 @@ export const SmallPokemonIcon = ({ pokemon }) => {
    >
     <img src={image} alt={`${name} png`} />
    </ImageContainerDiv>
-  </>
  );
 };

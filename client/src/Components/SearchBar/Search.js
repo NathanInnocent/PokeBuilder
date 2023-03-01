@@ -14,7 +14,6 @@ export const Search = () => {
  };
 
  return (
-  <>
    <Input
     onBlur={showPlaceHolderText}
     onFocus={hidePlaceHolderText}
@@ -28,6 +27,5 @@ export const Search = () => {
      margin: "none",
     }}
    />
-  </>
  );
 };

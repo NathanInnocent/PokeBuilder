@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, Fragment } from "react";
 import styled from "styled-components";
 import { UTILS } from "../../Helpers/Icons";
 import { Content } from "../SinglePokemon/styling";
@@ -16,7 +16,7 @@ export const HomePage = () => {
  }, []);
 
  return (
-  <>
+  <Fragment>
    <Page>
     <Welcome />
     <Content>
@@ -26,7 +26,7 @@ export const HomePage = () => {
      </section>
     </Content>
    </Page>
-  </>
+  </Fragment>
  );
 };
 

@@ -1,6 +1,6 @@
 import { Button, Text } from "./styling";
 import { Icon } from "../../Components/PokemonCard/styling";
-import { useContext, useState } from "react";
+import { useContext, useState, Fragment } from "react";
 import { getGenerationImage } from "./GenerationPictureLogic";
 import { getColorPallate } from "../../Components/PokemonCard/typeLogic";
 import { PokemonDataContext } from "../../Context/PokemonDataContext";
@@ -42,7 +42,7 @@ export const GridGenerations = ({ columns, handleSearch }) => {
  };
 
  return (
-  <>
+  <Fragment>
    <h2>Sort by Generation</h2>
    <div style={{ display: "grid", gridTemplateColumns: `${columns}`, gap: "10px" }}>
     {pokemonGenerationList.map((generation, index) => {
@@ -56,6 +56,6 @@ export const GridGenerations = ({ columns, handleSearch }) => {
      );
     })}
    </div>
-  </>
+  </Fragment>
  );
 };

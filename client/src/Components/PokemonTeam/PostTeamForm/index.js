@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, Fragment } from "react";
 import { ErrorMessage, Form, Input, Label } from "../../../Auth/Form/Components/FormStyles";
 import { CurrentPokemonTeamContext } from "../../../Context/CurrentPokemonTeamContext";
 import { PostTeamButton } from "../PostButton";
@@ -14,7 +14,7 @@ export const PostTeamForm = () => {
  let isTeamComplete = currentPokemonTeam.every((pokemon) => Object.keys(pokemon).length !== 0);
 
  return (
-  <>
+  <Fragment>
    {isTeamComplete && (
     <Form
      style={{ marginBottom: "20px", background: "hsl(0deg, 0%, 30%)" }}
@@ -30,6 +30,6 @@ export const PostTeamForm = () => {
    {serverResponse && (
     <ErrorMessage style={{ backgroundColor: `${serverResponse.status === 200 ? "hsl(147deg, 83%, 34%)" : "hsl(0, 100%, 50%, 0.5)"}`, marginBottom: "20px" }}>{serverResponse.message}</ErrorMessage>
    )}
-  </>
+  </Fragment>
  );
 };

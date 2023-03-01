@@ -1,7 +1,5 @@
 export const Gender = () => {
  return (
-  <>
-   <>Gender</>
-  </>
+   <span>Gender</span>
  );
 };

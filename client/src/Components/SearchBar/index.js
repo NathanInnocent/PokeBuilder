@@ -4,7 +4,6 @@ import { Search } from "./Search";
 
 export const SearchBar = ({ displayButton, backNavigation }) => {
  return (
-  <>
    <div
     style={{
      position: "relative",
@@ -18,6 +17,5 @@ export const SearchBar = ({ displayButton, backNavigation }) => {
     <BackButton displayValue={displayButton} route={backNavigation} />
     <Search />
    </div>
-  </>
  );
 };

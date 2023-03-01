@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, Fragment } from "react";
 import { useLocation } from "react-router-dom";
 import { CurrentUserContext } from "../../Context/CurrentUserContext";
 import { HomeNav, PokedexNav, SignInNav, SignOutNav, TeamNav, NavigationContainer, NavigationDivContainer } from "./navigationStyles";
@@ -13,7 +13,7 @@ export const NavigationBar = () => {
  }, [location.pathname]);
 
  return (
-  <>
+  <Fragment>
    {/* Hide navbar on sign in page */}
    {location.pathname !== "/" && (
     <NavigationContainer>
@@ -39,6 +39,6 @@ export const NavigationBar = () => {
      {currentUser && <SignOutNav onClick={() => setCurrentUser(null)}> Sign out</SignOutNav>}
     </NavigationContainer>
    )}
-  </>
+  </Fragment>
  );
 };

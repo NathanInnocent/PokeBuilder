@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { SmallPokemonIcon } from "../../Components/PokemonTeam/Card/pickedPokemon";
 import { PokemonDataContext } from "../../Context/PokemonDataContext";
 import { CurrentPokemonContext } from "./context";
+import { Fragment } from "react";
 
 export const Evolutions = () => {
  const { allPokemonData } = useContext(PokemonDataContext);
  const { evolutionChainDetail } = useContext(CurrentPokemonContext);
 
  return (
-  <>
+  <Fragment>
    {/* Make sure that the evolution chain is not 1 => would mean that there is only 1 form of the pokemon */}
    {Array.isArray(evolutionChainDetail) && evolutionChainDetail.length > 1 && (
     <div>
@@ -23,7 +24,7 @@ export const Evolutions = () => {
      </RoundContainer>
     </div>
    )}
-  </>
+  </Fragment>
  );
 };
 

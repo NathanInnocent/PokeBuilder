@@ -1,12 +1,13 @@
 import { getColorPallate, getTypeIcon } from "../../Components/PokemonCard/typeLogic";
 import { Button, Text } from "./styling";
 import { Icon } from "../../Components/PokemonCard/styling";
+import { Fragment } from "react";
 
 export const GridTypes = ({ columns, handleSearch }) => {
  const pokemonTypeList = ["normal", "fire", "water", "grass", "bug", "electric", "fairy", "psychic", "fighting", "rock", "ground", "flying", "ghost", "ice", "dark", "dragon", "poison", "steel"];
 
  return (
-  <>
+  <Fragment>
    <h2>Search by type</h2>
    <div style={{ display: "grid", gridTemplateColumns: `${columns}`, gap: "10px" }}>
     {pokemonTypeList.map((type, index) => {
@@ -20,6 +21,6 @@ export const GridTypes = ({ columns, handleSearch }) => {
      );
     })}
    </div>
-  </>
+  </Fragment>
  );
 };

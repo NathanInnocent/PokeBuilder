@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, Fragment } from "react";
 import { convertPokemonId, getColorPallate } from "../../../Components/PokemonCard/typeLogic";
 import { CurrentPokemonContext } from "../context";
 import { ImageContainerDiv, PokemonId, PokemonImage, PokemonName } from "../styling";
@@ -13,7 +13,7 @@ export const ImageUI = () => {
  const image = sprites.other[`official-artwork`][`front_default`];
 
  return (
-  <>
+  <Fragment>
    <PokemonName style={{ color: `${nameColor}`, textAlign: "center", textTransform: "capitalize" }}>{name}</PokemonName>
    <PokemonId style={{ textAlign: "center", color: `${numberColor}` }}>{displayedPokemonId}</PokemonId>
    {/* Add to team button */}
@@ -22,6 +22,6 @@ export const ImageUI = () => {
    <ImageContainerDiv style={{ zIndex: "1", margin: "auto" }}>
     <PokemonImage src={image} alt={`${name} png`} />
    </ImageContainerDiv>
-  </>
+  </Fragment>
  );
 };
