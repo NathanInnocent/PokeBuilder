@@ -10,11 +10,9 @@ export const ErrorPage = () => {
  }, []);
 
  return (
-  <>
    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", marginTop: "200px" }}>
     <h2>An error has occured, please contact support if problem persists</h2>
     <img src={snorlax} alt="snorlax sleeping" />
    </div>
-  </>
  );
 };

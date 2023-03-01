@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, Fragment } from "react";
 import { UserAuthenticationForm } from "./Auth/Form";
 import { PokemonDataContext } from "./Context/PokemonDataContext";
 import { PokedexPage } from "./Pages";
@@ -23,10 +23,10 @@ function App() {
  }, []);
 
  return (
-  <>
+  <Fragment>
    {/* Only show app if we have all pokemon data  */}
    {shownPokemons.length > 0 && allPokemonData.length >= 1126 && (
-    <>
+    <Fragment>
      <Router>
       <NavigationBar />
       <Routes>
@@ -40,11 +40,11 @@ function App() {
        <Route path="*" element={<ErrorPage />} />
       </Routes>
      </Router>
-    </>
+    </Fragment>
    )}
    {/* Loading animation */}
    {allPokemonData.length < 1126 && <Loading />}
-  </>
+  </Fragment>
  );
 }
 

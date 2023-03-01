@@ -3,9 +3,7 @@ import { loadingspin } from "../../Helpers/Icons";
 
 export const LoadingSpinner = () => {
  return (
-  <>
    <Spinner src={loadingspin} alt="loading" />
-  </>
  );
 };
 

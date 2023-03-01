@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, Fragment } from "react";
 import { Radar } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Chart as chartjs } from "chart.js/auto";
@@ -81,13 +81,13 @@ export const Stats = () => {
  };
 
  return (
-  <>
+  <Fragment>
    {radarConfigData !== null && (
     <div style={{ width: "500px", margin: "auto" }}>
      {/* Plugin helps display data value */}
      <Radar data={radarConfigData} plugins={[ChartDataLabels]} options={options} />
     </div>
    )}
-  </>
+  </Fragment>
  );
 };

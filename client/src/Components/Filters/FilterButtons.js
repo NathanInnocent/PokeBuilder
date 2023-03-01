@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, Fragment } from "react";
 import { PokemonDataContext } from "../../Context/PokemonDataContext";
 import { Button } from "./MoreFiltersButton";
 
@@ -49,7 +49,7 @@ export const FilterButtons = () => {
  };
 
  return (
-  <>
+  <Fragment>
    <Button onClick={sortAlphabetically}>A-Z</Button>
    <Button onClick={sortReverseAlphabetically}>Z-A</Button>
    <Button onClick={sortHeaviest}>Heaviest-Lightest</Button>
@@ -57,6 +57,6 @@ export const FilterButtons = () => {
    <Button onClick={sortTallest}>Tallest-Shortest</Button>
    <Button onClick={sortShortest}>Shortest-Tallest</Button>
    <Button onClick={sortID}>Id</Button>
-  </>
+  </Fragment>
  );
 };

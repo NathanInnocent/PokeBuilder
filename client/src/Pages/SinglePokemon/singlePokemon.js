@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, Fragment } from "react";
 import { PokemonDataContext } from "../../Context/PokemonDataContext";
 import { useParams } from "react-router-dom";
 import { Page, Section, Content } from "./styling";
@@ -142,7 +142,7 @@ export const SinglePokemon = () => {
  }, [currentPokemon]);
 
  return (
-  <>
+  <Fragment>
    {currentPokemon == null && <div>Fetching data...</div>}
    {currentPokemon != null && (
     <Page>
@@ -178,6 +178,6 @@ export const SinglePokemon = () => {
      )}
     </Page>
    )}
-  </>
+  </Fragment>
  );
 };

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, Fragment } from "react";
 import { ErrorMessage } from "../../../Auth/Form/Components/FormStyles";
 import { CurrentPokemonTeamContext } from "../../../Context/CurrentPokemonTeamContext";
 import { CurrentPokemonContext } from "../context";
@@ -13,7 +13,7 @@ export const AddAndRemoveTeamButtons = () => {
  const isPokemonTeamFull = currentPokemonTeam.every((currentTeam) => Object.keys(currentTeam).length !== 0);
 
  return (
-  <>
+  <Fragment>
    {/* Show add button if pokemon not on team  and team is not full*/}
    {!isPokemonInsideTeam && isPokemonTeamFull === false && (
     <ButtonTeam outline="5px solid rgba(81, 203, 238, 1)" onClick={() => addPokemonToTeam(currentPokemon)}>
@@ -26,6 +26,6 @@ export const AddAndRemoveTeamButtons = () => {
     </ButtonTeam>
    )}
    {isPokemonTeamFull === true && <ErrorMessage style={{ width: "15%", marginTop: "10px" }}>Current team is full</ErrorMessage>}
-  </>
+  </Fragment>
  );
 };

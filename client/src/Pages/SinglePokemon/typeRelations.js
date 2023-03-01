@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { LoadingSpinner } from "../../Components/LoadingSpinner";
 import { getColorPallate } from "../../Components/PokemonCard/typeLogic";
@@ -134,15 +134,14 @@ export const TypeRelationStats = () => {
  //Step 4 - remaider is pokemon type relation
 
  return (
-  <>
-   <></>
+  <Fragment>
    {typeRelations.lenght === 0 && <LoadingSpinner />}
    {/* display relations */}
 
    {typeRelations.lenght !== 0 &&
     [typeMap].map((typeRelation) => {
      return (
-      <>
+      <Fragment>
        <div className="type-relation-container">
         <div className="type-relation-container__left">
          <h2>Strong Against</h2>
@@ -188,9 +187,9 @@ export const TypeRelationStats = () => {
          </div>
         )}
        </div>
-      </>
+      </Fragment>
      );
     })}
-  </>
+  </Fragment>
  );
 };
