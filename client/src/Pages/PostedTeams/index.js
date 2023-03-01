@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import styled from "styled-components";
 import { Loading } from "../../Components/LoadingPage";
 import { PokemonTeam } from "../../Components/PokemonTeam";
@@ -36,14 +36,14 @@ export const PostedTeamsPage = () => {
  }, []);
 
  return (
-  <>
+  <Fragment>
    {!fetchedPostedTeams && <Loading />}
    <div>
     {fetchedPostedTeams &&
      fetchedPostedTeams.map((postedTeam) => {
       const { team, username, teamName } = postedTeam;
       return (
-       <>
+       <Fragment>
         <TeamContainer>
          <div style={{ display: "flex", justifyContent: "space-between", textTransform: "capitalize", fontSize: "1.1em" }}>
           <div>{teamName}</div>
@@ -51,11 +51,11 @@ export const PostedTeamsPage = () => {
          </div>
          <PokemonTeam pokemon={team} />
         </TeamContainer>
-       </>
+       </Fragment>
       );
      })}
    </div>
-  </>
+  </Fragment>
  );
 };
 

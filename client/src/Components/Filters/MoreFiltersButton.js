@@ -11,7 +11,6 @@ export const MoreFilters = () => {
  };
 
  return (
-  <>
    <Button
     onClick={goToFilterPage}
     style={{
@@ -25,7 +24,6 @@ export const MoreFilters = () => {
    >
     More Filters
    </Button>
-  </>
  );
 };
 

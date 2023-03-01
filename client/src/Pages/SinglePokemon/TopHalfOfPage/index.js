@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, Fragment } from "react";
 import { getColorPallate } from "../../../Components/PokemonCard/typeLogic";
 import { PokemonTeam } from "../../../Components/PokemonTeam";
 import { PostTeamForm } from "../../../Components/PokemonTeam/PostTeamForm";
@@ -28,7 +28,7 @@ export const TopHalfOfPage = () => {
  }, []);
 
  return (
-  <>
+  <Fragment>
    <Section style={{ backgroundColor: `${backgroundColor}` }}>
     <Content>
      <SearchBar backNavigation="/pokedex" />
@@ -38,6 +38,6 @@ export const TopHalfOfPage = () => {
      <ImageUI />
     </Content>
    </Section>
-  </>
+  </Fragment>
  );
 };

@@ -13,8 +13,6 @@ export const SearchFilterPage = () => {
  };
 
  return (
-  <>
-   {/* Container */}
    <Page>
     <SearchBar />
     <Content style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop: "10px" }}>
@@ -23,7 +21,6 @@ export const SearchFilterPage = () => {
      {/* Grid end */}
     </Content>
    </Page>
-  </>
  );
 };
 

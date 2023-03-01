@@ -8,10 +8,8 @@ export const PostTeamButton = ({ setServerResponse, teamName }) => {
  const [buttonDisabled, setButtonDisabled] = useState(false);
 
  return (
-  <>
    <Button disabled={buttonDisabled} style={{ margin: "auto", marginTop: "20px" }} onClick={() => postPokemonTeam(setServerResponse, teamName, setButtonDisabled)}>
     {buttonDisabled === true ? <LoadingSpinner /> : "Post Team"}
    </Button>
-  </>
  );
 };

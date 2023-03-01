@@ -2,11 +2,12 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { CurrentPokemonContext } from "./context";
 import { FlexVerticalContainer } from "./styling";
+import { Fragment } from "react";
 
 export const Abilities = () => {
  const { abilityEffect } = useContext(CurrentPokemonContext);
  return (
-  <>
+  <Fragment>
    {abilityEffect && (
     <FlexVerticalContainer>
      <Table>
@@ -18,19 +19,19 @@ export const Abilities = () => {
       {abilityEffect.map((ability, index) => {
        const { name, effect, is_hidden } = ability;
        return (
-        <>
+        <Fragment>
          <Tr key={index}>
           <td>{name}</td>
           <td style={{ paddingLeft: "20px" }}>{effect}</td>
           <td>{is_hidden ? "Yes" : "No"}</td>
          </Tr>
-        </>
+        </Fragment>
        );
       })}
      </Table>
     </FlexVerticalContainer>
    )}
-  </>
+  </Fragment>
  );
 };
 
